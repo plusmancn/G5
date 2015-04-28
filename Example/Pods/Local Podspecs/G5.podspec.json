@@ -1,0 +1,25 @@
+{
+  "name": "G5",
+  "version": "0.1.0",
+  "summary": "A flexible framework of Hybrid App，which was more lighter than PhoneGap",
+  "description": "                       A flexible framework of Hybrid App，which was more lighter than PhoneGap\n\n                       ---\n\n                       **use follow open source framework**\n                       * Framework7\n                       * Masonry\n",
+  "homepage": "https://github.com/plusmancn/G5",
+  "license": "MIT",
+  "authors": {
+    "plusmancn": "plusmancn@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/plusmancn/G5.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "G5": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

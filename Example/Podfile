@@ -1,0 +1,17 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'G5', :exclusive => true do
+  pod "G5", :path => "../"
+  
+  pod 'Masonry'
+  pod "TAlertView"
+end
+
+target 'Tests', :exclusive => true do
+  pod "G5", :path => "../"
+
+  pod 'Specta'
+  pod 'Expecta'
+  pod 'FBSnapshotTestCase'
+  pod 'Expecta+Snapshots'
+end
