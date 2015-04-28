@@ -21,5 +21,10 @@
     "G5": [
       "Pod/Assets/*.png"
     ]
+  },
+  "dependencies": {
+    "AFNetworking": [
+      "~> 2.3"
+    ]
   }
 }
