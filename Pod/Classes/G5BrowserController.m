@@ -1,20 +1,20 @@
 //
-//  BrowserController.m
+//  G5BrowserController.m
 //  JuHappy
 //
 //  Created by plusman on 14/12/23.
 //  Copyright (c) 2014年 plusman. All rights reserved.
 //
 
-#import "BrowserController.h"
+#import "G5BrowserController.h"
 /**
  * 添加JS-Bridge网桥
  */
-/*#import "WebViewJavascriptBridge.h"*/
+#import "WebViewJavascriptBridge.h"
 
 
 
-@interface BrowserController ()  <UIWebViewDelegate>
+@interface G5BrowserController ()  <UIWebViewDelegate>
 {
     NSString *callback; // 定义变量用于保存返回函数
     NSString *baseCallback;
@@ -39,11 +39,11 @@
 
 @end
 
-@implementation BrowserController
+@implementation G5BrowserController
 
 + (instancetype)sharedBrowser {
     
-    static BrowserController *sharedBrowser;
+    static G5BrowserController *sharedBrowser;
     static dispatch_once_t BrowserOneToken;
     
     dispatch_once(&BrowserOneToken, ^{
@@ -82,159 +82,159 @@
          */
         self.bridge = [WebViewJavascriptBridge bridgeForWebView:_myWebView handler:^(id data, WVJBResponseCallback responseCallback) {
 
-            JuLog(@"Received message from javascript: %@", data);
+            G5Log(@"Received message from javascript: %@", data);
             responseCallback(@"Right back javascriptCore");
         }];
         
         
         
-        /**
-         * 二维码扫描接口
-         */
-        [_bridge registerHandler:@"scanQRCode" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            [self leaveOutShowNavigation];
-            
-            [JuJsSdk scanQrCode:self.navigationController
-                     scanResult:^(NSDictionary *resultDic) {
-                        responseCallback(@{@"errorCode":@0,
-                                           @"errorMessage":@"success",
-                                           @"data":resultDic[@"string"]
-                                           });
-            }];
-            
-        }];
-        
-        
-        /**
-         * 图像选择接口
-         */
-        [_bridge registerHandler:@"chooseImage" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            [self leaveOutShowNavigation];
-            
-            UIImagePickerControllerSourceType soureType = (UIImagePickerControllerSourceType)[data[@"soureType"] integerValue];
-            
-            [JuJsSdk chooseImage:self.navigationController
-                       soureType:soureType
-             returnImageData:^(NSDictionary *resultDic) {
-                 
-                 responseCallback(@{@"errorCode":@0,
-                                    @"errorMessage":@"success",
-                                    @"data":resultDic
-                                    });
-                 
-             } returnUploadProcess:^(NSInteger resultNum) {
-                 
-                 [_bridge callHandler:@"getUploadProcess"
-                                 data:[NSNumber numberWithInteger:resultNum]
-                  ];
-                 
-             } returnUploadStart:^{
-                 [_bridge callHandler:@"uploadStart"];
-             }];
-            
-            
-        }];
-        
-        /**
-         * 地理位置选取接口
-         */
-        [_bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            [self leaveOutShowNavigation];
-            
-            [JuJsSdk getLocation:self.navigationController result:^(NSDictionary *resultDic) {
-                responseCallback(@{@"errorCode":@0,
-                                   @"errorMessage":@"success",
-                                   @"data":resultDic
-                                   });
-            }];
-        }];
-        
-        
-        /**
-         * 地理位置展示接口
-         */
-        [_bridge registerHandler:@"openLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            [self leaveOutShowNavigation];
-            
-            [JuJsSdk openLocation:self.navigationController
-                             Lat:[data[@"latitude"] floatValue]
-                             lng:[data[@"longitude"] floatValue]
-                           title:data[@"address"]
-            ];
-        }];
-        
-        /**
-         * 位置签到
-         */
-        [_bridge registerHandler:@"mapMeetCheckIn" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            [self leaveOutShowNavigation];
-            
-            [JuJsSdk openLocation:self.navigationController
-                              Lat:[data[@"latitude"] floatValue]
-                              lng:[data[@"longitude"] floatValue]
-                            title:data[@"address"]
-                        meetingId:data[@"meetingId"]
-             ];
-            
-        }];
-        
-        /**
-         * 关闭当前窗口
-         */
-        [_bridge registerHandler:@"closeWindow" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            if (self.navigationController != nil) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                
-                [self dismissViewControllerAnimated:YES completion:^{
-                   // do something
-                }];
-            }
-            
-        }];
-        
-        /**
-         * 分享接口
-         */
-        [_bridge registerHandler:@"shareSocialNetwork" handler:^(id data, WVJBResponseCallback responseCallback) {
-            [JuJsSdk shareSocialNetwork:data];
-        }];
-        
-        /**
-         * 通知接口
-         */
-        [_bridge registerHandler:@"postNotification" handler:^(id data, WVJBResponseCallback responseCallback) {
-            [JuJsSdk postNotification:data[@"name"]];
-        }];
-        
-        
-        /**
-         * 打开好友名片
-         */
-        [_bridge registerHandler:@"openUserNameCard" handler:^(id data, WVJBResponseCallback responseCallback) {
-            [self leaveOutShowNavigation];
-            
-            [JuJsSdk openUserNameCard:self.navigationController
-                          RnameCardId:data[@"nameCardId"]
-            ];
-        }];
-        
-        
-        [_bridge registerHandler:@"openUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            [JuJsSdk openUrl:data[@"url"]];
-        
-        }];
+//        /**
+//         * 二维码扫描接口
+//         */
+//        [_bridge registerHandler:@"scanQRCode" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            [self leaveOutShowNavigation];
+//            
+//            [JuJsSdk scanQrCode:self.navigationController
+//                     scanResult:^(NSDictionary *resultDic) {
+//                        responseCallback(@{@"errorCode":@0,
+//                                           @"errorMessage":@"success",
+//                                           @"data":resultDic[@"string"]
+//                                           });
+//            }];
+//            
+//        }];
+//        
+//        
+//        /**
+//         * 图像选择接口
+//         */
+//        [_bridge registerHandler:@"chooseImage" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            [self leaveOutShowNavigation];
+//            
+//            UIImagePickerControllerSourceType soureType = (UIImagePickerControllerSourceType)[data[@"soureType"] integerValue];
+//            
+//            [JuJsSdk chooseImage:self.navigationController
+//                       soureType:soureType
+//             returnImageData:^(NSDictionary *resultDic) {
+//                 
+//                 responseCallback(@{@"errorCode":@0,
+//                                    @"errorMessage":@"success",
+//                                    @"data":resultDic
+//                                    });
+//                 
+//             } returnUploadProcess:^(NSInteger resultNum) {
+//                 
+//                 [_bridge callHandler:@"getUploadProcess"
+//                                 data:[NSNumber numberWithInteger:resultNum]
+//                  ];
+//                 
+//             } returnUploadStart:^{
+//                 [_bridge callHandler:@"uploadStart"];
+//             }];
+//            
+//            
+//        }];
+//        
+//        /**
+//         * 地理位置选取接口
+//         */
+//        [_bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            [self leaveOutShowNavigation];
+//            
+//            [JuJsSdk getLocation:self.navigationController result:^(NSDictionary *resultDic) {
+//                responseCallback(@{@"errorCode":@0,
+//                                   @"errorMessage":@"success",
+//                                   @"data":resultDic
+//                                   });
+//            }];
+//        }];
+//        
+//        
+//        /**
+//         * 地理位置展示接口
+//         */
+//        [_bridge registerHandler:@"openLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            [self leaveOutShowNavigation];
+//            
+//            [JuJsSdk openLocation:self.navigationController
+//                             Lat:[data[@"latitude"] floatValue]
+//                             lng:[data[@"longitude"] floatValue]
+//                           title:data[@"address"]
+//            ];
+//        }];
+//        
+//        /**
+//         * 位置签到
+//         */
+//        [_bridge registerHandler:@"mapMeetCheckIn" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            [self leaveOutShowNavigation];
+//            
+//            [JuJsSdk openLocation:self.navigationController
+//                              Lat:[data[@"latitude"] floatValue]
+//                              lng:[data[@"longitude"] floatValue]
+//                            title:data[@"address"]
+//                        meetingId:data[@"meetingId"]
+//             ];
+//            
+//        }];
+//        
+//        /**
+//         * 关闭当前窗口
+//         */
+//        [_bridge registerHandler:@"closeWindow" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            if (self.navigationController != nil) {
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }else{
+//                
+//                [self dismissViewControllerAnimated:YES completion:^{
+//                   // do something
+//                }];
+//            }
+//            
+//        }];
+//        
+//        /**
+//         * 分享接口
+//         */
+//        [_bridge registerHandler:@"shareSocialNetwork" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            [JuJsSdk shareSocialNetwork:data];
+//        }];
+//        
+//        /**
+//         * 通知接口
+//         */
+//        [_bridge registerHandler:@"postNotification" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            [JuJsSdk postNotification:data[@"name"]];
+//        }];
+//        
+//        
+//        /**
+//         * 打开好友名片
+//         */
+//        [_bridge registerHandler:@"openUserNameCard" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            [self leaveOutShowNavigation];
+//            
+//            [JuJsSdk openUserNameCard:self.navigationController
+//                          RnameCardId:data[@"nameCardId"]
+//            ];
+//        }];
+//        
+//        
+//        [_bridge registerHandler:@"openUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
+//            
+//            [JuJsSdk openUrl:data[@"url"]];
+//        
+//        }];
         
         // 添加返回通知
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disabledNativeBackEffect) name:Ju_Noti_diabledNativeBackEffect object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enabledNativeBackEffect) name:Ju_Noti_enabledNativeBackEffect object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disabledNativeBackEffect) name:G5_Noti_diabledNativeBackEffect object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enabledNativeBackEffect) name:G5_Noti_enabledNativeBackEffect object:nil];
         
         _isShowNavigationBar = YES;
         
@@ -243,42 +243,9 @@
     return self;
 }
 
-
-
-#pragma mark - 监听浏览器事件
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    
-    NSString *requestString = [[request URL] absoluteString];
-    
-    // 打印错误
-    JuLog(@"%@",requestString);
-    
-    if ([requestString hasPrefix:JuProtocol]) {
-        /*
-        NSString *requestContent = [requestString substringFromIndex:[JuProtocol length]];
-        NSArray *vals = [requestContent componentsSeparatedByString:@"/"];
-        */
-        return NO;
-    }
-    
-    return YES;
-}
-
-
-
 #pragma mark - 加载事件
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    /*
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backButton"] style:UIBarButtonItemStyleBordered target:self action:@selector(navBackAction)];
-    self.navigationItem.leftBarButtonItem=newBackButton;
-    */
-    
-    
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -310,7 +277,7 @@
 // 加载网页
 - (void)loadURL:(NSString *)url{
     
-    JuLog(@"%@",url);
+    G5Log(@"%@",url);
     
     _isShowNavigationBar = YES;
     
@@ -327,7 +294,7 @@
 
 - (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query{
     
-    _isShowNavigationBar = YES;
+    /*_isShowNavigationBar = YES;
     
     // 打印query部分
     
@@ -344,7 +311,7 @@
     NSString *absoluteURLwithQueryString = [theAbsoluteURLString stringByAppendingString: query];
     NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
     
-    [_myWebView loadHTMLString:html baseURL:finalURL];
+    [_myWebView loadHTMLString:html baseURL:finalURL];*/
     
     
     /*_isShowNavigationBar = YES;
@@ -379,7 +346,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.bgView removeFromSuperview];
     
-    JuLog(@"内存限制");
+    G5Log(@"内存限制");
     
     // webViewDidFinishLoad方法中设置如下
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
@@ -401,7 +368,7 @@
 #pragma mark - 缓存警告处理
 - (void)didReceiveMemoryWarning {
 
-    JuLog(@"Respnose to memory warning");
+    G5Log(@"Respnose to memory warning");
     
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [super didReceiveMemoryWarning];
@@ -414,8 +381,7 @@
 
 #pragma mark - 手动加载空白网页
 - (void)loadBlank{
-    /*JuLog(@"加载空白网页");
-    [self loadURL:@"about:blank"];*/
+    [self loadURL:@"about:blank"];
 }
 
 
@@ -428,8 +394,6 @@
 - (void)disabledNativeBackEffect{
     _isShowNavigationBar = NO;
     [self.navigationController setNavigationBarHidden:YES];
-    
-    /*JuLog(@"disabled");*/
 }
 
 - (void)enabledNativeBackEffect{
@@ -439,7 +403,6 @@
     _barAlpha =  self.navigationController.navigationBar.alpha;
     self.navigationController.navigationBar.alpha = 0.0;
     
-    /*JuLog(@"enable");*/
 }
 
 

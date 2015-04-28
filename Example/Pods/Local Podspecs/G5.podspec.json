@@ -2,7 +2,7 @@
   "name": "G5",
   "version": "0.1.0",
   "summary": "A flexible framework of Hybrid App，which was more lighter than PhoneGap",
-  "description": "                       A flexible framework of Hybrid App，which was more lighter than PhoneGap\n\n                       ---\n\n                       **use follow open source framework**\n                       * Framework7\n                       * Masonry\n",
+  "description": "                       A flexible framework of Hybrid App，which was more lighter than PhoneGap\n\n                       ---\n\n                       **use follow open source framework**\n\n                       * Framework7\n                       * Masonry\n",
   "homepage": "https://github.com/plusmancn/G5",
   "license": "MIT",
   "authors": {
@@ -25,6 +25,12 @@
   "dependencies": {
     "AFNetworking": [
       "~> 2.3"
+    ],
+    "MBProgressHUD": [
+
+    ],
+    "ZipArchive": [
+
     ]
   }
 }

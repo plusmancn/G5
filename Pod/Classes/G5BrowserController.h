@@ -1,5 +1,5 @@
 //
-//  BrowserController.h
+//  G5BrowserController.h
 //  JuHappy
 //
 //  Created by plusman on 14/12/23.
@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "G5CommDefine.h"
 
 typedef void(^outWebViewBlock) (NSString *url);
 
-@interface BrowserController : UIViewController <UIWebViewDelegate>
+@interface G5BrowserController : UIViewController <UIWebViewDelegate>
 
 
 @property (assign,nonatomic) BOOL isLoadBlank;

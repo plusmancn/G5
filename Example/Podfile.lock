@@ -27,9 +27,13 @@ PODS:
   - FBSnapshotTestCase (1.6)
   - G5 (0.1.0):
     - AFNetworking (~> 2.3)
+    - MBProgressHUD
+    - ZipArchive
   - Masonry (0.6.1)
+  - MBProgressHUD (0.9.1)
   - Specta (0.5.0)
   - TAlertView (0.2.0)
+  - ZipArchive (1.4.0)
 
 DEPENDENCIES:
   - Expecta
@@ -49,9 +53,11 @@ SPEC CHECKSUMS:
   Expecta: 78b4e8b0c8291fa4524d7f74016b6065c2e391ec
   Expecta+Snapshots: 40c5ec43b43da3bae957f14fed5dc9177d08ec8b
   FBSnapshotTestCase: 9d5fe43b29ae3a0ed8fc829477971b281038f748
-  G5: e0a03f4ecf26887df21ff4fea485d822493b49f0
+  G5: 193519f9b2755f3ebd11409881b85334c2fddcf2
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Specta: eb90708ed77569bbda089f8ead10bb99b8e9489e
   TAlertView: 3787ac0ea7e832d80be129a9be960eb1fc5c73f1
+  ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
 
 COCOAPODS: 0.37.0.beta.1

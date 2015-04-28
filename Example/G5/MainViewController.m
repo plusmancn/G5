@@ -7,7 +7,8 @@
 //
 
 #import "MainViewController.h"
-#import "Tab1ViewController.h"
+#import "G5JsApiViewController.h"
+#import "G5CodeDropViewController.h"
 #import "BaseNavigationController.h"
 
 @interface MainViewController ()
@@ -28,9 +29,15 @@
     
     
     //初始化我的
-    Tab1ViewController *tab1 = [[Tab1ViewController alloc] init];
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:tab1];
-    [self addChildViewController:nav];
+    G5JsApiViewController *JsApi = [[G5JsApiViewController alloc] init];
+    BaseNavigationController *navJsApi = [[BaseNavigationController alloc] initWithRootViewController:JsApi];
+    [self addChildViewController:navJsApi];
+    
+    
+    G5CodeDropViewController *CodeDrop = [[G5CodeDropViewController alloc] init];
+    BaseNavigationController *navCodeDrop = [[BaseNavigationController alloc] initWithRootViewController:CodeDrop];
+    [self addChildViewController:navCodeDrop];
+    
     
     [self setSelectedIndex:0];
     

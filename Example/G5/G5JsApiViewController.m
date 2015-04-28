@@ -1,29 +1,28 @@
 //
-//  Tab1ViewController.m
+//  G5JsApiViewController.m
 //  g5
 //
 //  Created by plusman on 15/4/27.
 //  Copyright (c) 2015年 plusman. All rights reserved.
 //
 
-#import "Tab1ViewController.h"
+#import "G5JsApiViewController.h"
 #import "LineButton.h"
-#
 
-@interface Tab1ViewController ()
+@interface G5JsApiViewController ()
 
 @end
 
-@implementation Tab1ViewController
+@implementation G5JsApiViewController
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         // 设置TabBar
-        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tab1" image:[UIImage imageNamed:@"TabBrowser"] tag:0];
+        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"JsApi" image:[UIImage imageNamed:@"TabBrowser"] tag:0];
         self.tabBarItem = tabBarItem;
-        self.title = @"tab1";
+        self.title = @"JsApi";
     }
     return self;
 }
@@ -34,7 +33,7 @@
     
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
     
-    [openJsSdk setTitle:@"打开JS-SDK示例页面" forState:UIControlStateNormal];
+    [openJsSdk setTitle:@"打开JsApi示例页面" forState:UIControlStateNormal];
     [self.view addSubview:openJsSdk];
     
     
