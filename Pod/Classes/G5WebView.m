@@ -12,6 +12,7 @@
 
 @interface G5WebView()<UIWebViewDelegate>
 
+@property (nonatomic , weak) id<UIWebViewDelegate> privateDelegate ;
 @property (strong,nonatomic) WebViewJavascriptBridge *bridge;
 
 @end
@@ -102,7 +103,11 @@
 
 #pragma mark - 缓存警告处理，需要设置浏览器代理
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self removeFromSuperview];
+    
+    if ([self.privateDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
+        [self.privateDelegate webViewDidFinishLoad:webView];
+    }
+    
     
     // webViewDidFinishLoad方法中设置如下
     [[NSUserDefaults standardUserDefaults] setInteger:0
@@ -124,12 +129,31 @@
     [NSURLCache setSharedURLCache:sharedCache];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+    if ([self.privateDelegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
+        [self.privateDelegate webViewDidStartLoad:webView];
+    }
 }
-*/
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if ([self.privateDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
+        [self.privateDelegate webView:webView didFailLoadWithError:error];
+    }
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    if ([self.privateDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+       return [self.privateDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    }
+    return YES;
+}
+
+
+-(void)setDelegate:(id<UIWebViewDelegate>)delegate{
+    [super setDelegate:delegate ];
+    self.privateDelegate = delegate;
+}
+
+
 
 @end
