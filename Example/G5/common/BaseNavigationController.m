@@ -45,6 +45,11 @@
     return UIInterfaceOrientationPortrait;
 }
 
+/**
+ * 设置 status bar 背景色 ，参考：http://www.appcoda.com/customize-navigation-status-bar-ios-7/
+ * 此处未生效
+ */
+
 /*
 #pragma mark - Navigation
 

@@ -42,6 +42,7 @@
     
     G5FirstLevelViewController *firstLevel = [[G5FirstLevelViewController alloc] init];
     BaseNavigationController *navFirst = [[BaseNavigationController alloc] initWithRootViewController:firstLevel];
+    [navFirst setNavigationBarHidden:YES];
     [self addChildViewController:navFirst];
     
     [self setSelectedIndex:2];

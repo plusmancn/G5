@@ -21,13 +21,12 @@
 {
     self = [super init];
     if (self) {
+        /*[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];*/
+        
         // 设置TabBar
         UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"一级网页" image:[UIImage imageNamed:@"firstLevel"] tag:2];
         self.tabBarItem = tabBarItem;
         self.title = @"一级网页";
-        
-        // 隐藏原生的 navigationBar
-        [self.navigationController setNavigationBarHidden:YES];
         
         // 网页提前加载，viewDidLoad方法会有闪屏
         _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -47,10 +46,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    /*[self.navigationController setNavigationBarHidden:NO];*/
-    [super viewWillDisappear:animated];
-}
 
 /*
 #pragma mark - Navigation
