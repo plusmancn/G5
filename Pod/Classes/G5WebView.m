@@ -12,6 +12,8 @@
 
 @interface G5WebView()<UIWebViewDelegate>
 
+@property (weak,nonatomic) id<UIWebViewDelegate> delageteJs;
+@property (weak,nonatomic) id<UIWebViewDelegate> delagateOut;
 @property (strong,nonatomic) WebViewJavascriptBridge *bridge;
 
 @end
@@ -46,6 +48,7 @@
 
 #pragma mark - 初始化网桥实现
 - (void)initBridgeEvent{
+    self.delegate = self;
     /**
      * 网桥初始化
      */
@@ -65,7 +68,6 @@
 #pragma mark -  网页加载
 - (void)loadURL:(NSString *)url{
     G5Log(@"loadUrl: %@",url);
-
     NSURL *URL = [[NSURL alloc] initWithString:url];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
     [self loadRequest:request];
@@ -100,6 +102,7 @@
 
 #pragma mark - 缓存警告处理，需要设置浏览器代理
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+    
     // webViewDidFinishLoad方法中设置如下
     [[NSUserDefaults standardUserDefaults] setInteger:0
                                                forKey:@"WebKitCacheModelPreferenceKey"];
@@ -107,7 +110,6 @@
                                             forKey:@"WebKitDiskImageCacheEnabled"];
     [[NSUserDefaults standardUserDefaults] setBool:NO
                                             forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
-    
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     //缓存类型
@@ -119,5 +121,11 @@
     
     [NSURLCache setSharedURLCache:sharedCache];
 }
+
+// 代理方法
+- (void)setDelegate:(id<UIWebViewDelegate>)delegate{
+    [super setDelegate:delegate];
+}
+
 
 @end
