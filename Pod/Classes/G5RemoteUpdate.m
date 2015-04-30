@@ -194,6 +194,4 @@
     return filesPath;
 }
 
-#warning 网络检测，据说 会被 app store 拒绝，首个版本发布后，在考虑添加
-
 @end
