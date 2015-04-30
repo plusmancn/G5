@@ -12,8 +12,9 @@
 
 @interface G5WebView()<UIWebViewDelegate>
 
-@property (weak,nonatomic) id<UIWebViewDelegate> delageteJs;
-@property (weak,nonatomic) id<UIWebViewDelegate> delagateOut;
+@property (nonatomic, weak) id<UIWebViewDelegate> privateDelegate;
+@property (nonatomic, weak) id<UIWebViewDelegate> outDelegate;
+
 @property (strong,nonatomic) WebViewJavascriptBridge *bridge;
 
 @end
@@ -103,6 +104,9 @@
 #pragma mark - 缓存警告处理，需要设置浏览器代理
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     
+    if ([self.privateDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
+        [self.privateDelegate webViewDidFinishLoad:webView];
+    }
     // webViewDidFinishLoad方法中设置如下
     [[NSUserDefaults standardUserDefaults] setInteger:0
                                                forKey:@"WebKitCacheModelPreferenceKey"];
@@ -122,9 +126,34 @@
     [NSURLCache setSharedURLCache:sharedCache];
 }
 
-// 代理方法
-- (void)setDelegate:(id<UIWebViewDelegate>)delegate{
-    [super setDelegate:delegate];
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+    if ([self.privateDelegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
+        [self.privateDelegate webViewDidStartLoad:webView];
+    }
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if ([self.privateDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
+        [self.privateDelegate webView:webView didFailLoadWithError:error];
+    }
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
+    if ([self.privateDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+       return [self.privateDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    }
+    
+    return YES;
+}
+
+
+-(void)setDelegate:(id<UIWebViewDelegate>)delegate{
+    if (delegate == self) {
+        [super setDelegate:delegate];
+    }else{
+        _privateDelegate = delegate;
+    }
 }
 
 
