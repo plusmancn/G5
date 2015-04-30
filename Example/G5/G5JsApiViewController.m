@@ -32,7 +32,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     UILabel *tips = [[UILabel alloc] init];
-    tips.text = @"浏览器弹出方式，目前只支持 push 方式";
+    tips.numberOfLines = 0;
+    tips.text = @"浏览器弹出方式，目前只支持 push 方式浏览器弹出方式，目前只支持 push 方式浏览器弹出方式，目前只支持 push 方式浏览器弹出方式，目前只支持 push 方式";
     [self.view addSubview:tips];
     
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
