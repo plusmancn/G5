@@ -7,9 +7,11 @@
 //
 
 #import "G5FirstLevelViewController.h"
-#import <G5/G5BrowserController.h>
+#import <G5/G5WebView.h>
 
 @interface G5FirstLevelViewController ()
+
+@property (strong,nonatomic) G5WebView *G5WebView;
 
 @end
 
@@ -23,6 +25,14 @@
         UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"一级网页" image:[UIImage imageNamed:@"firstLevel"] tag:2];
         self.tabBarItem = tabBarItem;
         self.title = @"一级网页";
+        
+        // 隐藏原生的 navigationBar
+        [self.navigationController setNavigationBarHidden:YES];
+        
+        // 网页提前加载，viewDidLoad方法会有闪屏
+        _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [self.view addSubview:_G5WebView];
+        [_G5WebView loadURLWithLocalfile:@"index" query:@""];
     }
     return self;
 }
@@ -30,12 +40,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    /*[self.navigationController setNavigationBarHidden:NO];*/
+    [super viewWillDisappear:animated];
 }
 
 /*

@@ -41,7 +41,7 @@
 }
 
 - (instancetype)init{
-    return [G5BrowserController sharedBrowser];
+    return [self initPrivate];
 }
 
 #pragma mark - 私有初始化函数

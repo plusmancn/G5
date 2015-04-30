@@ -44,7 +44,7 @@
     BaseNavigationController *navFirst = [[BaseNavigationController alloc] initWithRootViewController:firstLevel];
     [self addChildViewController:navFirst];
     
-    [self setSelectedIndex:0];
+    [self setSelectedIndex:2];
     
 }
 

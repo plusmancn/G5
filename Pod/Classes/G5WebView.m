@@ -44,6 +44,7 @@
     self.scrollView.bounces = NO; // 防止网页头尾被拖动
 }
 
+#pragma mark - 初始化网桥实现
 - (void)initBridgeEvent{
     /**
      * 网桥初始化
@@ -52,7 +53,6 @@
         G5Log(@"Received message from javascript: %@", data);
         responseCallback(@"Right back javascriptCore");
     }];
-    
     
     /**
      * 消息通知接口
@@ -72,8 +72,7 @@
 }
 
 
-
-
+#pragma mark - 加载本地文件
 - (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query{
     
     /*_isShowNavigationBar = YES;
@@ -93,7 +92,6 @@
      
      [_G5WebView loadHTMLString:html baseURL:finalURL];*/
     
-    
     NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:localFile ofType:@"html" inDirectory:@"www"]];
     [self loadRequest:[[NSURLRequest alloc] initWithURL:baseUrl]];
     
@@ -102,8 +100,6 @@
 
 #pragma mark - 缓存警告处理，需要设置浏览器代理
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self removeFromSuperview];
-    
     // webViewDidFinishLoad方法中设置如下
     [[NSUserDefaults standardUserDefaults] setInteger:0
                                                forKey:@"WebKitCacheModelPreferenceKey"];
@@ -123,13 +119,5 @@
     
     [NSURLCache setSharedURLCache:sharedCache];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end
