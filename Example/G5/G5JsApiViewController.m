@@ -31,17 +31,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UILabel *tips = [[UILabel alloc] init];
+    tips.text = @"浏览器弹出方式，目前只支持 push 方式";
+    [self.view addSubview:tips];
     
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
     [openJsSdk addTarget:self action:@selector(showF7WebDemo) forControlEvents:UIControlEventTouchUpInside];
     [openJsSdk setTitle:@"打开JsApi示例页面" forState:UIControlStateNormal];
     [self.view addSubview:openJsSdk];
     
-    
-    [openJsSdk makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
+    [tips makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(NAVIGATION_HEIGHT + 20);
+        make.width.lessThanOrEqualTo(SCREEN_WIDTH);
+        make.centerX.equalTo(self.view);
     }];
     
+    [openJsSdk makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(tips.bottom).offset(20);
+        make.centerX.equalTo(self.view);
+    }];
 }
 
 /**

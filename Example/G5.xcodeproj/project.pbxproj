@@ -541,6 +541,7 @@
 				GCC_PREFIX_HEADER = "G5/G5-Prefix.pch";
 				INFOPLIST_FILE = "G5/G5-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -556,6 +557,7 @@
 				GCC_PREFIX_HEADER = "G5/G5-Prefix.pch";
 				INFOPLIST_FILE = "G5/G5-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

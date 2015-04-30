@@ -19,6 +19,7 @@
 /**
  * 定义屏幕高度和宽度
  */
+#define NAVIGATION_HEIGHT 64
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 

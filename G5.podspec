@@ -28,10 +28,12 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/plusmancn/G5.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
+  s.ios.framework    = 'UIKit'
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
+  s.resource     = 'Pod/Classes/WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt'
+  s.source_files = 'Pod/Classes/**/*.{h,m}'
   s.resource_bundles = {
     'G5' => ['Pod/Assets/*.png']
   }

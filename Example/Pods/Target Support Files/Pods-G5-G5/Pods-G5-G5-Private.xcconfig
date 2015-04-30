@@ -1,6 +1,6 @@
 #include "Pods-G5-G5.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/G5" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/Expecta" "${PODS_ROOT}/Headers/Public/Expecta+Snapshots" "${PODS_ROOT}/Headers/Public/FBSnapshotTestCase" "${PODS_ROOT}/Headers/Public/G5" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/Specta" "${PODS_ROOT}/Headers/Public/TAlertView" "${PODS_ROOT}/Headers/Public/ZipArchive"
-OTHER_LDFLAGS = -ObjC
+OTHER_LDFLAGS = ${PODS_G__G__OTHER_LDFLAGS} -ObjC
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES

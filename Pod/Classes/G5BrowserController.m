@@ -8,6 +8,7 @@
 
 #import "G5BrowserController.h"
 #import "WebViewJavascriptBridge.h" // Js-Bridge
+#import "G5JsSdk.h"
 
 
 @interface G5BrowserController ()  <UIWebViewDelegate>
@@ -53,6 +54,7 @@
     
     if (self) {
         _G5WebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        // 禁止浏览器上下黑屏滚动
         _G5WebView.scrollView.bounces = NO;
         // 只添加一次
         [self.view addSubview:_G5WebView];
@@ -75,13 +77,13 @@
         
 
         
-//        /**
-//         * 二维码扫描接口
-//         */
-//        [_bridge registerHandler:@"scanQRCode" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
-//            [self leaveOutShowNavigation];
-//            
+        /**
+         * 二维码扫描接口
+         */
+        [_bridge registerHandler:@"scanQRCode" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            [self leaveOutShowNavigation];
+            
 //            [JuJsSdk scanQrCode:self.navigationController
 //                     scanResult:^(NSDictionary *resultDic) {
 //                        responseCallback(@{@"errorCode":@0,
@@ -89,17 +91,17 @@
 //                                           @"data":resultDic[@"string"]
 //                                           });
 //            }];
-//            
-//        }];
-//        
-//        
-//        /**
-//         * 图像选择接口
-//         */
-//        [_bridge registerHandler:@"chooseImage" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
-//            [self leaveOutShowNavigation];
-//            
+            
+        }];
+        
+        
+        /**
+         * 图像选择接口
+         */
+        [_bridge registerHandler:@"chooseImage" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            [self leaveOutShowNavigation];
+            
 //            UIImagePickerControllerSourceType soureType = (UIImagePickerControllerSourceType)[data[@"soureType"] integerValue];
 //            
 //            [JuJsSdk chooseImage:self.navigationController
@@ -120,104 +122,105 @@
 //             } returnUploadStart:^{
 //                 [_bridge callHandler:@"uploadStart"];
 //             }];
-//            
-//            
-//        }];
-//        
-//        /**
-//         * 地理位置选取接口
-//         */
-//        [_bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
-//            [self leaveOutShowNavigation];
-//            
+            
+            
+        }];
+        
+        /**
+         * 地理位置选取接口
+         */
+        [_bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            [self leaveOutShowNavigation];
+            
 //            [JuJsSdk getLocation:self.navigationController result:^(NSDictionary *resultDic) {
 //                responseCallback(@{@"errorCode":@0,
 //                                   @"errorMessage":@"success",
 //                                   @"data":resultDic
 //                                   });
 //            }];
-//        }];
-//        
-//        
-//        /**
-//         * 地理位置展示接口
-//         */
-//        [_bridge registerHandler:@"openLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
-//            [self leaveOutShowNavigation];
-//            
+        }];
+        
+        
+        /**
+         * 地理位置展示接口
+         */
+        [_bridge registerHandler:@"openLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            [self leaveOutShowNavigation];
+            
 //            [JuJsSdk openLocation:self.navigationController
 //                             Lat:[data[@"latitude"] floatValue]
 //                             lng:[data[@"longitude"] floatValue]
 //                           title:data[@"address"]
 //            ];
-//        }];
-//        
-//        /**
-//         * 位置签到
-//         */
-//        [_bridge registerHandler:@"mapMeetCheckIn" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
-//            [self leaveOutShowNavigation];
-//            
+        }];
+        
+        /**
+         * 位置签到
+         */
+        [_bridge registerHandler:@"mapMeetCheckIn" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            [self leaveOutShowNavigation];
+            
 //            [JuJsSdk openLocation:self.navigationController
 //                              Lat:[data[@"latitude"] floatValue]
 //                              lng:[data[@"longitude"] floatValue]
 //                            title:data[@"address"]
 //                        meetingId:data[@"meetingId"]
 //             ];
-//            
-//        }];
-//        
-//        /**
-//         * 关闭当前窗口
-//         */
-//        [_bridge registerHandler:@"closeWindow" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
-//            if (self.navigationController != nil) {
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }else{
-//                
-//                [self dismissViewControllerAnimated:YES completion:^{
-//                   // do something
-//                }];
-//            }
-//            
-//        }];
-//        
-//        /**
-//         * 分享接口
-//         */
-//        [_bridge registerHandler:@"shareSocialNetwork" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+        }];
+        
+        /**
+         * 关闭当前窗口
+         */
+        [_bridge registerHandler:@"closeWindow" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            if (self.navigationController != nil) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                
+                [self dismissViewControllerAnimated:YES completion:^{
+                    //  do something
+                }];
+            }
+            
+        }];
+        
+        /**
+         * 分享接口
+         */
+        [_bridge registerHandler:@"shareSocialNetwork" handler:^(id data, WVJBResponseCallback responseCallback) {
 //            [JuJsSdk shareSocialNetwork:data];
-//        }];
-//        
-//        /**
-//         * 通知接口
-//         */
-//        [_bridge registerHandler:@"postNotification" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            [JuJsSdk postNotification:data[@"name"]];
-//        }];
-//        
-//        
-//        /**
-//         * 打开好友名片
-//         */
-//        [_bridge registerHandler:@"openUserNameCard" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            [self leaveOutShowNavigation];
-//            
+        }];
+        
+        /**
+         * 消息通知接口
+         */
+        [_bridge registerHandler:@"postNotification" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [G5JsSdk postNotification:data[@"name"]];
+            G5Log(@"%@",data);
+        }];
+        
+        
+        /**
+         * 打开好友名片
+         */
+        [_bridge registerHandler:@"openUserNameCard" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self leaveOutShowNavigation];
+            
 //            [JuJsSdk openUserNameCard:self.navigationController
 //                          RnameCardId:data[@"nameCardId"]
 //            ];
-//        }];
-//        
-//        
-//        [_bridge registerHandler:@"openUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
-//            
+        }];
+        
+        
+        [_bridge registerHandler:@"openUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
 //            [JuJsSdk openUrl:data[@"url"]];
-//        
-//        }];
+        
+        }];
         
         // 添加返回通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disabledNativeBackEffect) name:G5_Noti_diabledNativeBackEffect object:nil];

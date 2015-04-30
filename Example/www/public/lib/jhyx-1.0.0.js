@@ -182,17 +182,17 @@ _connectWebViewJavascriptBridge(function(bridge) {
     }
 
     window.jhyx = {
-        scanQRCode:scanQRCode,
-        chooseImage:chooseImage,
-        getLocation:getLocation,
-        closeWindow:closeWindow,
-        shareSocialNetwork:shareSocialNetwork,
+        // scanQRCode:scanQRCode,
+        // chooseImage:chooseImage,
+        // getLocation:getLocation,
+        // closeWindow:closeWindow,
+        // shareSocialNetwork:shareSocialNetwork,
         postNotification:postNotification,
-        openLocation:openLocation,
-        mapMeetCheckIn:mapMeetCheckIn,
-        openUserNameCard:openUserNameCard,
-        openUrl:openUrl,
-        connectWebViewJavascriptBridge:_connectWebViewJavascriptBridge
+        // openLocation:openLocation,
+        // mapMeetCheckIn:mapMeetCheckIn,
+        // openUserNameCard:openUserNameCard,
+        // openUrl:openUrl,
+        // connectWebViewJavascriptBridge:_connectWebViewJavascriptBridge
     }
 
 

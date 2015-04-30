@@ -35,11 +35,11 @@ define(function() {
 
                 if (execResult[1] == page.name) {
                     jhyx.postNotification({
-                        'name':'Ju_Noti_enabledNativeBackEffect'
+                        'name':'G5_Noti_enabledNativeBackEffect'
                     });
                 }else{
                     jhyx.postNotification({
-                        'name':'Ju_Noti_diabledNativeBackEffect'
+                        'name':'G5_Noti_diabledNativeBackEffect'
                     });
                 }
             };

@@ -58,9 +58,11 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "../../Pod/Classes/WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt"
   install_resource "${BUILT_PRODUCTS_DIR}/G5.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "../../Pod/Classes/WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt"
   install_resource "${BUILT_PRODUCTS_DIR}/G5.bundle"
 fi
 

@@ -12,11 +12,15 @@
     "git": "https://github.com/plusmancn/G5.git",
     "tag": "0.1.0"
   },
+  "ios": {
+    "frameworks": "UIKit"
+  },
   "platforms": {
     "ios": "7.0"
   },
   "requires_arc": true,
-  "source_files": "Pod/Classes/**/*",
+  "resources": "Pod/Classes/WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt",
+  "source_files": "Pod/Classes/**/*.{h,m}",
   "resource_bundles": {
     "G5": [
       "Pod/Assets/*.png"
