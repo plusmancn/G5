@@ -43,7 +43,7 @@
 		1617A4EA9C4C20C3F3FC48A4 /* ExpectaObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E98C388E7AB4BB3BB622CF49 /* ExpectaObject.h */; };
 		17B4058657CA2E2477475131 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D8884E101166A3ACB91F7F /* AFNetworkReachabilityManager.m */; };
 		17D97AD99C1A5A49B67ECA8B /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 110F15A63AD9FA2145DAEEB6 /* AFNetworking.h */; };
-		184B54C08E187AB065F7B422 /* MBProgressHUD+XBX.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F322E7068388E48C3524DF /* MBProgressHUD+XBX.h */; };
+		184B54C08E187AB065F7B422 /* MBProgressHUD+G5.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F322E7068388E48C3524DF /* MBProgressHUD+G5.h */; };
 		19FE20710CBE89235512CF2B /* Pods-Tests-Specta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2099CF4BF3ADE161D84915B1 /* Pods-Tests-Specta-dummy.m */; };
 		1A7B9378E3787615A66CC0EC /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E6AEA7949328431DD8D82 /* MASLayoutConstraint.m */; };
 		1C556070C225E1A7837B624F /* Pods-Tests-Expecta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E6704C1F95F6F5FBCE9B4A8D /* Pods-Tests-Expecta-dummy.m */; };
@@ -61,7 +61,7 @@
 		23BA1F3ACA6EE4FDDB347979 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6490BB7691A0A41E4E9786 /* MASViewConstraint.m */; };
 		24F3494B6D0EB43E2D8D2747 /* Pods-G5-TAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF5D1896FC95B29169F5F65 /* Pods-G5-TAlertView-dummy.m */; };
 		255DF331542CEAE6CA1926EE /* EXPMatchers+equal.h in Headers */ = {isa = PBXBuildFile; fileRef = BDCCA43A23F8CA837AF408A8 /* EXPMatchers+equal.h */; };
-		2591BF7CA352BDA37BC5BE91 /* MBProgressHUD+XBX.m in Sources */ = {isa = PBXBuildFile; fileRef = C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+XBX.m */; };
+		2591BF7CA352BDA37BC5BE91 /* MBProgressHUD+G5.m in Sources */ = {isa = PBXBuildFile; fileRef = C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+G5.m */; };
 		2745C6B62F8C872793B1AE4F /* G5BrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 643610A8E16E986677455958 /* G5BrowserController.m */; };
 		2884936F5870F0E1BA717263 /* SPTSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EDA53FA6100118910DEEB6 /* SPTSpec.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		297325C452A4BCF524318CAA /* NSValue+Expecta.h in Headers */ = {isa = PBXBuildFile; fileRef = 48EDCA59D6B03041F39BF98E /* NSValue+Expecta.h */; };
@@ -101,7 +101,7 @@
 		4985F817691241F8AA117D92 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BB9CE5925DA65A69AB93741 /* crypt.h */; };
 		4A2D930A39E70878097057D8 /* Expecta.h in Headers */ = {isa = PBXBuildFile; fileRef = 32657A13ECC10775CD86445B /* Expecta.h */; };
 		4D59D87D38D39A0AF6C868B9 /* EXPMatchers+postNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = C4459E5449B0F6AF106E4C57 /* EXPMatchers+postNotification.h */; };
-		4D7BB711EC27F56065CFFE71 /* MBProgressHUD+XBX.m in Sources */ = {isa = PBXBuildFile; fileRef = C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+XBX.m */; };
+		4D7BB711EC27F56065CFFE71 /* MBProgressHUD+G5.m in Sources */ = {isa = PBXBuildFile; fileRef = C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+G5.m */; };
 		4D8810806D471AC875A3629F /* XCTestCase+Specta.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EFCAE1544D90E0DEC78209 /* XCTestCase+Specta.h */; };
 		4DA5D8B310B15F71A19FB11B /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A752BD3673AACA77AE029FD5 /* AFURLSessionManager.h */; };
 		4F1EA1D68382BA6D97010031 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D270E11A84D0BF5957376651 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -247,7 +247,7 @@
 		C2DD20D03200BB47A9911E01 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB47D69AB93563CA6DCDDD /* WebViewJavascriptBridge.m */; };
 		C321B11FEFA2612246CC1D74 /* EXPFloatTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = 083BBE70C97C3CEEED8BD24C /* EXPFloatTuple.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B496724A0E7566F6244C6D /* ExpectaSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB5AAC64D6E949C3F5E5600 /* ExpectaSupport.h */; };
-		C4EA659C9BF255B974F31ED0 /* MBProgressHUD+XBX.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F322E7068388E48C3524DF /* MBProgressHUD+XBX.h */; };
+		C4EA659C9BF255B974F31ED0 /* MBProgressHUD+G5.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F322E7068388E48C3524DF /* MBProgressHUD+G5.h */; };
 		C5121FFE0F32B5FAB4987584 /* Masonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 460EA20C62DBDFFFB70044B5 /* Masonry.h */; };
 		C520F1E61217EE8F90B20D07 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A16F734A14B749E9BF3E96 /* AFHTTPRequestOperation.m */; };
 		C543575B764CF19C49F235B1 /* EXPUnsupportedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94431E99FC9844172DA05858 /* EXPUnsupportedObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -619,7 +619,7 @@
 		7440DDA742B57CD27616B444 /* SPTExample.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPTExample.h; path = Specta/Specta/SPTExample.h; sourceTree = "<group>"; };
 		74B7DA44CFA6ECBB40C85DBA /* libPods-G5-G5.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-G5-G5.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74CF38E833B0CD39CE6936C2 /* Pods-G5-Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-G5-Masonry-prefix.pch"; sourceTree = "<group>"; };
-		74F322E7068388E48C3524DF /* MBProgressHUD+XBX.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+XBX.h"; sourceTree = "<group>"; };
+		74F322E7068388E48C3524DF /* MBProgressHUD+G5.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+G5.h"; sourceTree = "<group>"; };
 		7576258443D63DBAE5B3039A /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/UIImage+Diff.m"; sourceTree = "<group>"; };
 		7666B0A7B340B439B2548849 /* Pods-G5-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-G5-acknowledgements.markdown"; sourceTree = "<group>"; };
 		76D51F3FFA0617A2B4B4A70F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -715,7 +715,7 @@
 		C482606AB780169622153F7B /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
 		C6CD80AE36F4FFFBDC91C460 /* EXPMatchers+beGreaterThanOrEqualTo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+beGreaterThanOrEqualTo.m"; path = "Expecta/Matchers/EXPMatchers+beGreaterThanOrEqualTo.m"; sourceTree = "<group>"; };
 		C849A608C4F87CCE685547B0 /* SPTCompiledExample.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPTCompiledExample.m; path = Specta/Specta/SPTCompiledExample.m; sourceTree = "<group>"; };
-		C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+XBX.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+XBX.m"; sourceTree = "<group>"; };
+		C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+G5.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+G5.m"; sourceTree = "<group>"; };
 		C8676498C4780D73820F98A9 /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIKit+AFNetworking.h"; path = "UIKit+AFNetworking/UIKit+AFNetworking.h"; sourceTree = "<group>"; };
 		C8ADD14F02C8467E875B4440 /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
 		C8FFC3CA71DA1319AC115980 /* libPods-Tests-Specta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests-Specta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1204,8 +1204,8 @@
 				245D4ED68AD82FFDB6B8EE5F /* G5CommDefine.h */,
 				A5709D74F9C186E83577679D /* G5RemoteUpdate.h */,
 				A769A31C00A2151B5691014F /* G5RemoteUpdate.m */,
-				74F322E7068388E48C3524DF /* MBProgressHUD+XBX.h */,
-				C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+XBX.m */,
+				74F322E7068388E48C3524DF /* MBProgressHUD+G5.h */,
+				C8613FDAF3DBD8FABFDEBACE /* MBProgressHUD+G5.m */,
 				0EB6AD13095F8FEE11F2B3E7 /* WebViewJavascriptBridge */,
 			);
 			path = Classes;
@@ -1653,7 +1653,7 @@
 				BF4EA3993EE241DB9E3BEEDB /* G5BrowserController.h in Headers */,
 				AE12D8160403B6AB33B6C186 /* G5CommDefine.h in Headers */,
 				9892E652054679F498287BF4 /* G5RemoteUpdate.h in Headers */,
-				184B54C08E187AB065F7B422 /* MBProgressHUD+XBX.h in Headers */,
+				184B54C08E187AB065F7B422 /* MBProgressHUD+G5.h in Headers */,
 				0C8F26A6A4DCCF12255EE4D4 /* WebViewJavascriptBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1799,7 +1799,7 @@
 				05AE6D577BB7EF672C45E7B1 /* G5BrowserController.h in Headers */,
 				35090A477BDE58064FAEA189 /* G5CommDefine.h in Headers */,
 				497DF6FB98E37A152AD22938 /* G5RemoteUpdate.h in Headers */,
-				C4EA659C9BF255B974F31ED0 /* MBProgressHUD+XBX.h in Headers */,
+				C4EA659C9BF255B974F31ED0 /* MBProgressHUD+G5.h in Headers */,
 				09425A2EB313A8315E5135B7 /* WebViewJavascriptBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2256,7 +2256,7 @@
 			files = (
 				2745C6B62F8C872793B1AE4F /* G5BrowserController.m in Sources */,
 				0EB041A2DDC338B23A5218EA /* G5RemoteUpdate.m in Sources */,
-				2591BF7CA352BDA37BC5BE91 /* MBProgressHUD+XBX.m in Sources */,
+				2591BF7CA352BDA37BC5BE91 /* MBProgressHUD+G5.m in Sources */,
 				AAAFF9F36B75D93F22BA4E36 /* Pods-Tests-G5-dummy.m in Sources */,
 				F9DF5642A2979181E851A253 /* WebViewJavascriptBridge.js.txt in Sources */,
 				29A42FFF95A912F95FC50115 /* WebViewJavascriptBridge.m in Sources */,
@@ -2282,7 +2282,7 @@
 			files = (
 				AA6E0F0538F8F7E440C07FB7 /* G5BrowserController.m in Sources */,
 				50CB99D84686EE7FF62425ED /* G5RemoteUpdate.m in Sources */,
-				4D7BB711EC27F56065CFFE71 /* MBProgressHUD+XBX.m in Sources */,
+				4D7BB711EC27F56065CFFE71 /* MBProgressHUD+G5.m in Sources */,
 				543910792D8DADA120A12F42 /* Pods-G5-G5-dummy.m in Sources */,
 				FD846FD7578C38B81CEAFD64 /* WebViewJavascriptBridge.js.txt in Sources */,
 				C2DD20D03200BB47A9911E01 /* WebViewJavascriptBridge.m in Sources */,

@@ -1,12 +1,12 @@
 //
-//  MBProgressHUD+XBX.m
+//  MBProgressHUD+G5.m
 //  HXD
 //
 //  Created by minug on 15/4/2.
 //  Copyright (c) 2015年 minug. All rights reserved.
 //
 
-#import "MBProgressHUD+XBX.h"
+#import "MBProgressHUD+G5.h"
 
 @implementation MBProgressHUD (XBX)
 
