@@ -53,7 +53,7 @@
     
     if (self) {
         _G5WebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        
+        _G5WebView.scrollView.bounces = NO;
         // 只添加一次
         [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -73,7 +73,7 @@
             responseCallback(@"Right back javascriptCore");
         }];
         
-        
+
         
 //        /**
 //         * 二维码扫描接口

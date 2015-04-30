@@ -9,7 +9,7 @@
 #import "G5RemoteUpdate.h"
 
 // 动态菊花
-#import "MBProgressHUD+XBX.h"
+#import "MBProgressHUD+G5.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 // 资源更新

@@ -1,5 +1,5 @@
 //
-//  MBProgressHUD+XBX.h
+//  MBProgressHUD+G5.h
 //  HXD
 //
 //  Created by minug on 15/4/2.
@@ -8,7 +8,7 @@
 
 #import "MBProgressHUD.h"
 
-@interface MBProgressHUD (XBX)
+@interface MBProgressHUD (G5)
 
 +(void)showWithView:(UIView *)view Text:(NSString *)text hideDelayTime:(NSTimeInterval )time;
 +(void)showSuccessWithView:(UIView *)view Text:(NSString *)text hideDelayTime:(NSTimeInterval )time;
