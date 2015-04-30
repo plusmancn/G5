@@ -33,55 +33,65 @@
       <!-- Your main view, should have "view-main" class-->
       <div class="view view-main">
         <!-- Top Navbar-->
-        <div class="navbar">
-          <div class="navbar-inner">
-            <!-- We have home navbar without left link-->
-            <div class="center sliding">Awesome App</div>
-            <div class="right">
-              <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
-            </div>
-          </div>
+<!-- ++++++++++++++++++++++++++++++++ -->
+
+<!-- navbar header -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <!-- We have home navbar without left link-->
+    <div class="center sliding">Awesome App</div>
+    <div class="right">
+      <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+<div class="pages navbar-through toolbar-through">
+  <!-- Page, data-page contains page name-->
+  <div data-page="index" class="page">
+    <!-- Scrollable page content-->
+    <div class="page-content">
+      <div class="content-block-title">This is a html5 webpage</div>
+      <div class="content-block">
+        <div class="content-block-inner">
+          <p>web 部分基于Framework7开发，F7类似于ionic；UI和动态效果符合ios app的习惯</p>
         </div>
-        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
-        <div class="pages navbar-through toolbar-through">
-          <!-- Page, data-page contains page name-->
-          <div data-page="index" class="page">
-            <!-- Scrollable page content-->
-            <div class="page-content">
-              <div class="content-block-title">This is a html5 webpage</div>
-              <div class="content-block">
-                <div class="content-block-inner">
-                  <p>web 部分基于Framework7开发，F7类似于ionic；UI和动态效果符合ios app的习惯</p>
+      </div>
+
+      <div class="content-block-title">G5 Example</div>
+      <div class="list-block">
+        <ul>
+          <li><a href="JsApi.html" class="item-link">
+              <div class="item-content">
+                <div class="item-inner"> 
+                  <div class="item-title">Js-Api Demo</div>
                 </div>
-              </div>
+              </div></a></li>
+        </ul>
+      </div>
 
-              <div class="content-block-title">G5 Example</div>
-              <div class="list-block">
-                <ul>
-                  <li><a href="JsApi.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner"> 
-                          <div class="item-title">Js-Api Demo</div>
-                        </div>
-                      </div></a></li>
-                </ul>
-              </div>
-
-              <div class="content-block-title">Side panels</div>
-              <div class="content-block">
-                <div class="row">
-                  <div class="col-50"><a href="#" data-panel="left" class="button open-panel">Left Panel</a></div>
-                  <div class="col-50"><a href="#" data-panel="right" class="button open-panel">Right Panel</a></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
+      <div class="content-block-title">Side panels</div>
+      <div class="content-block">
+        <div class="row">
+          <div class="col-50"><a href="#" data-panel="left" class="button open-panel">Left Panel</a></div>
+          <div class="col-50"><a href="#" data-panel="right" class="button open-panel">Right Panel</a></div>
         </div>
-        <!-- Bottom Toolbar-->
-        <div class="toolbar">
-          <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
-        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Toolbar-->
+<div class="toolbar">
+  <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+</div>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++ -->
+
       </div>
     </div>
     

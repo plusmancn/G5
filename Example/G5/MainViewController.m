@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "G5JsApiViewController.h"
 #import "G5CodeDropViewController.h"
+#import "G5FirstLevelViewController.h"
 #import "BaseNavigationController.h"
 
 @interface MainViewController ()
@@ -38,6 +39,10 @@
     BaseNavigationController *navCodeDrop = [[BaseNavigationController alloc] initWithRootViewController:CodeDrop];
     [self addChildViewController:navCodeDrop];
     
+    
+    G5FirstLevelViewController *firstLevel = [[G5FirstLevelViewController alloc] init];
+    BaseNavigationController *navFirst = [[BaseNavigationController alloc] initWithRootViewController:firstLevel];
+    [self addChildViewController:navFirst];
     
     [self setSelectedIndex:0];
     

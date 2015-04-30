@@ -32,7 +32,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     UILabel *tips = [[UILabel alloc] init];
-    tips.text = @"浏览器弹出方式，目前只支持 push 方式";
+    tips.numberOfLines = 10;
+    tips.text = @" 弹出方式：push \n 当前页面：native \n Web框架：Framework7 \n html位置：mainBundle";
     [self.view addSubview:tips];
     
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
@@ -41,7 +42,7 @@
     [self.view addSubview:openJsSdk];
     
     [tips makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(NAVIGATION_HEIGHT + 20);
+        make.top.equalTo(self.view).offset(NAVIGATION_HEIGHT + 40);
         make.width.lessThanOrEqualTo(SCREEN_WIDTH);
         make.centerX.equalTo(self.view);
     }];
