@@ -7,7 +7,7 @@
 //
 
 #import "G5BrowserController.h"
-#import "WebViewJavascriptBridge.h" // js-bridge
+#import "WebViewJavascriptBridge.h" // Js-Bridge
 
 
 @interface G5BrowserController ()  <UIWebViewDelegate>
@@ -31,11 +31,6 @@
  */
 #pragma mark - 单例
 + (instancetype)sharedBrowser {
-    return [[self alloc] init];
-}
-
-+ (instancetype)allocWithZone:(struct _NSZone *)zone{
-    
     static G5BrowserController *sharedBrowser;
     
     static dispatch_once_t BrowserOneToken;
@@ -47,6 +42,9 @@
     return sharedBrowser;
 }
 
+- (instancetype)init{
+    return [G5BrowserController sharedBrowser];
+}
 
 #pragma mark - 私有初始化函数
 - (instancetype)initPrivate{
@@ -354,9 +352,6 @@
 
 #pragma mark - 缓存警告处理
 - (void)didReceiveMemoryWarning {
-
-    G5Log(@"Respnose to memory warning");
-    
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [super didReceiveMemoryWarning];
 }
