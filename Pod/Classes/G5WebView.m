@@ -45,6 +45,7 @@
     self.scrollView.bounces = NO; // 防止网页头尾被拖动
 }
 
+#pragma mark - 初始化网桥实现
 - (void)initBridgeEvent{
     /**
      * 网桥初始化
@@ -53,7 +54,6 @@
         G5Log(@"Received message from javascript: %@", data);
         responseCallback(@"Right back javascriptCore");
     }];
-    
     
     /**
      * 消息通知接口
@@ -73,8 +73,7 @@
 }
 
 
-
-
+#pragma mark - 加载本地文件
 - (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query{
     
     /*_isShowNavigationBar = YES;
@@ -93,7 +92,6 @@
      NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
      
      [_G5WebView loadHTMLString:html baseURL:finalURL];*/
-    
     
     NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:localFile ofType:@"html" inDirectory:@"www"]];
     [self loadRequest:[[NSURLRequest alloc] initWithURL:baseUrl]];

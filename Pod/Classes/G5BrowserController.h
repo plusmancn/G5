@@ -16,8 +16,4 @@
 - (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query;
 
 
-// 单实例化
-+ (instancetype)sharedBrowser;
-
-
 @end
