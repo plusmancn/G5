@@ -25,12 +25,12 @@
         [self installCode:1];
     }else{
         
-        NSDictionary *params = @{
+        /*NSDictionary *params = @{
                                  @"platform":@"ios"
                                  };
         
         // 获取远程下载地址
-        /*[AVCloud callFunctionInBackground:@"verLatest" withParameters:params block:^(id object, NSError *error) {
+        [AVCloud callFunctionInBackground:@"verLatest" withParameters:params block:^(id object, NSError *error) {
             
             if (error) {
                 return;

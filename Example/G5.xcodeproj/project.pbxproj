@@ -20,6 +20,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		84FD75C0EE290D64E0635496 /* libPods-G5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 190509FE21D43FEFD531A1A9 /* libPods-G5.a */; };
+		B43AF4961AF1CB0E00D2C666 /* www in Resources */ = {isa = PBXBuildFile; fileRef = B43AF4951AF1CB0E00D2C666 /* www */; };
 		B49395971AEF748900EA4F14 /* G5JsApiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49395961AEF748900EA4F14 /* G5JsApiViewController.m */; };
 		B493959A1AEF754D00EA4F14 /* G5CodeDropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49395991AEF754D00EA4F14 /* G5CodeDropViewController.m */; };
 		B4F942341AEE998A00CBE804 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F9422E1AEE998A00CBE804 /* MainViewController.m */; };
@@ -61,6 +62,7 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		B43AF4951AF1CB0E00D2C666 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		B49395951AEF748900EA4F14 /* G5JsApiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G5JsApiViewController.h; sourceTree = "<group>"; };
 		B49395961AEF748900EA4F14 /* G5JsApiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G5JsApiViewController.m; sourceTree = "<group>"; };
 		B49395981AEF754D00EA4F14 /* G5CodeDropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G5CodeDropViewController.h; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				B43AF4951AF1CB0E00D2C666 /* www */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* G5 */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -314,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B43AF4961AF1CB0E00D2C666 /* www in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				B4F9423E1AEE9C5200CBE804 /* LaunchScreen.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,

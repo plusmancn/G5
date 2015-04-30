@@ -1,0 +1,163 @@
+
+<!-- We don't need full layout here, because this page will be parsed with Ajax-->
+<!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+    <div class="center sliding">Js-Api Demo</div>
+    <div class="right">
+      <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+    </div>
+  </div>
+</div>
+
+
+<div class="pages">
+   <!-- Page, data-page contains page name-->
+    <div data-page="JsBridge" class="page">
+    <!-- Scrollable page content-->
+    <div class="page-content hide-bars-on-scroll">
+
+        <!-- part1 -->
+        <div class="content-block-title">扫描二维码</div>
+        <div class="content-block">
+            <div class="content-block-inner">
+
+            <p>
+                二维码扫描结果：
+                <br/>
+            </p>
+
+            <p>
+                <pre id="scanResult">
+                </pre>
+            </p>
+
+            <p><a href="#" class="button ScanQRCode">扫描二维码</a></p>
+
+            </div>
+        </div>
+
+        <!-- part2 -->
+        <div class="content-block-title">选取图片</div>
+        <div class="content-block">
+            <div class="content-block-inner">
+
+            <p>
+                图片base64解码显示
+                <br/>
+                <img id="ChooseImageBase64" src="" style="outline: 1px solid #ccc; padding: 5px; margin: 5px;width:92%">
+            </p>
+
+            <p>
+                上传进度显示：<span id="ChooseImagePercenDone">0</span>%
+            </p>
+
+            <p>
+                JSON 输出 （图片base64未显示完全）
+                <pre id="ChooseImageResult">
+                </pre>
+            </p>
+
+            <p><a href="#" class="button ChooseImage">获取图片</a></p>
+
+            </div>
+
+        </div>
+
+        <!-- part3 -->
+        <div class="content-block-title">选取地理位置（设计师求图标）</div>
+        <div class="content-block">
+            <div class="content-block-inner">
+
+            <p>
+                选取结果
+                <br/>
+            </p>
+
+            <p>
+                <pre id="GetLocationResult">
+                </pre>
+            </p>
+
+            <p><a href="#" class="button GetLocation">选取地理位置</a></p>
+
+            </div>
+        </div>
+
+
+        <!-- part4 -->
+        <div class="content-block-title">关闭当前窗口</div>
+        <div class="content-block">
+            <div class="content-block-inner">
+
+            <p>
+                点击后将关闭当前webview控件
+            </p>
+
+            <p>
+                ios 针对pushViewController弹出方式的webView
+            </p>
+
+
+            <p><a href="#" class="button closeWindow">关闭当前窗口(事件绑定)</a></p>
+            <p><a href="#" class="button" onclick="jhyx.closeWindow();">关闭当前窗口(onclick)</a></p>
+
+            </div>
+        </div>
+
+
+        <!-- part5 -->
+        <div class="content-block-title">Template7 使用示例</div>
+        <div class="content-block">
+            <div class="content-block-inner" id="part5_html">
+
+            </div>
+        </div>
+
+        
+        <!-- 模板代码，必须放置在 page-content 下 -->
+        <script type="text/template7" id="part5">
+            <p>hi，我是<span style='color:red'>{{name}}</span>,加载来自<span style='color:red'>{{where}}</span>，之所以选择这种加载方式，而不是 Template Page，是想在页面Dom出现后，再进行数据交互请求，更类似于app；下一版本，会把模板文件移动到js文件夹下；现在这样做的好处是不管是微信还是app都很好兼容
+            </p>
+
+            <p>
+            循环示例：
+            {{#each people}}
+              <li>我是 {{name}}，一名{{job}}</li>
+            {{/each}} 
+            </p>
+
+            <p>
+                更多示例请访问：
+                <br/>
+                <a href='http://www.idangero.us/framework7/docs/template7.html#.VPWnwFOUe59' class='external' target='_blank' style='word-break: break-word;'>
+                    http://www.idangero.us/framework7/docs/template7.html#.VPWnwFOUe59
+                </a>
+            </p>
+
+        </script>
+        <!-- 模板代码 End -->
+
+
+        <!-- part6 -->
+        <div class="content-block-title">分享接口</div>
+        <div class="content-block">
+            <div class="content-block-inner">
+
+            <p>
+                参数定义
+            </p>
+
+            <p> 
+                <pre id="shareSocialNetworkParams"></pre>
+            </p>
+
+            <p><a href="#" class="button shareSocialNetwork">分享到社交网络</a></p>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+</div>

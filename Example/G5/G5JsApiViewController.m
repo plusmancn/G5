@@ -8,6 +8,7 @@
 
 #import "G5JsApiViewController.h"
 #import "LineButton.h"
+#import <G5/G5BrowserController.h>
 
 @interface G5JsApiViewController ()
 
@@ -32,7 +33,7 @@
     // Do any additional setup after loading the view.
     
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
-    
+    [openJsSdk addTarget:self action:@selector(showF7WebDemo) forControlEvents:UIControlEventTouchUpInside];
     [openJsSdk setTitle:@"打开JsApi示例页面" forState:UIControlStateNormal];
     [self.view addSubview:openJsSdk];
     
@@ -40,6 +41,17 @@
     [openJsSdk makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
     }];
+    
+}
+
+/**
+ * 展示web示例
+ */
+- (void)showF7WebDemo{
+    
+    G5BrowserController *G5Browser = [[G5BrowserController alloc] init];
+    [G5Browser loadURLWithLocalfile:@"index" query:@""];
+    [self.navigationController pushViewController:G5Browser animated:YES];
     
 }
 

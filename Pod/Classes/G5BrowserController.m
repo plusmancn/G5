@@ -7,33 +7,18 @@
 //
 
 #import "G5BrowserController.h"
-/**
- * 添加JS-Bridge网桥
- */
-#import "WebViewJavascriptBridge.h"
-
+#import "WebViewJavascriptBridge.h" // js-bridge
 
 
 @interface G5BrowserController ()  <UIWebViewDelegate>
 {
-    NSString *callback; // 定义变量用于保存返回函数
-    NSString *baseCallback;
+    // vars
 }
 
-
-/**
- * 添加JS-Bridge网桥
- */
-@property WebViewJavascriptBridge *bridge;
-
-@property (strong,nonatomic) UIWebView *myWebView;
-@property (strong,nonatomic) outWebViewBlock block;
-@property (strong,nonatomic) NSString *currentLocation;
-
+@property (strong,nonatomic) WebViewJavascriptBridge *bridge;
+@property (strong,nonatomic) UIWebView *G5WebView;
 @property (strong,nonatomic) NSMutableArray *visitedURLS;
-
 @property (nonatomic , weak) UIView * bgView ;
-
 @property (nonatomic , assign) CGFloat barAlpha;
 @property (nonatomic , assign) BOOL isShowNavigationBar;
 
@@ -41,9 +26,18 @@
 
 @implementation G5BrowserController
 
+/**
+ * 浏览器单例实现，兼容两种方式初始化
+ */
+#pragma mark - 单例
 + (instancetype)sharedBrowser {
+    return [[self alloc] init];
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone{
     
     static G5BrowserController *sharedBrowser;
+    
     static dispatch_once_t BrowserOneToken;
     
     dispatch_once(&BrowserOneToken, ^{
@@ -53,22 +47,17 @@
     return sharedBrowser;
 }
 
-- (instancetype)init{
-    @throw [NSException exceptionWithName:@"Singleton" reason:@"请使用单一浏览器控件，防止内存泄露" userInfo:nil];
-    
-    return nil;
-}
-
 
 #pragma mark - 私有初始化函数
 - (instancetype)initPrivate{
+    
     self = [super init];
     
     if (self) {
-        _myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _G5WebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         
         // 只添加一次
-        [self.view addSubview:_myWebView];
+        [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
         
         /* status Bar */
@@ -80,7 +69,7 @@
         /**
          * 网桥初始化
          */
-        self.bridge = [WebViewJavascriptBridge bridgeForWebView:_myWebView handler:^(id data, WVJBResponseCallback responseCallback) {
+        self.bridge = [WebViewJavascriptBridge bridgeForWebView:_G5WebView handler:^(id data, WVJBResponseCallback responseCallback) {
 
             G5Log(@"Received message from javascript: %@", data);
             responseCallback(@"Right back javascriptCore");
@@ -277,18 +266,15 @@
 // 加载网页
 - (void)loadURL:(NSString *)url{
     
-    G5Log(@"%@",url);
+    G5Log(@"loadUrl: %@",url);
     
     _isShowNavigationBar = YES;
     
-    [self initVisitedHistory];
-    
-    _currentLocation = url;
     NSURL *URL = [[NSURL alloc] initWithString:url];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
-    [_myWebView loadRequest:request];
-
+    [_G5WebView loadRequest:request];
 }
+
 
 
 
@@ -311,7 +297,7 @@
     NSString *absoluteURLwithQueryString = [theAbsoluteURLString stringByAppendingString: query];
     NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
     
-    [_myWebView loadHTMLString:html baseURL:finalURL];*/
+    [_G5WebView loadHTMLString:html baseURL:finalURL];*/
     
     
     /*_isShowNavigationBar = YES;
@@ -330,28 +316,29 @@
      NSString *absoluteURLwithQueryString = [theAbsoluteURLString stringByAppendingString: query];
      NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
      
-     [_myWebView loadHTMLString:html baseURL:finalURL];*/
+     [_G5WebView loadHTMLString:html baseURL:finalURL];*/
+    
+    
+    /*测试代码*/
+    // 添加参数
+    NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:localFile ofType:@"html" inDirectory:@"www"]];
+    
+    [_G5WebView loadRequest:[[NSURLRequest alloc] initWithURL:baseUrl]];
     
 }
-
-
-
-
-- (void)initVisitedHistory{
-    _visitedURLS = [NSMutableArray array];
-}
-
 
 #pragma mark - 缓存警告处理
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.bgView removeFromSuperview];
     
-    G5Log(@"内存限制");
-    
     // webViewDidFinishLoad方法中设置如下
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的，原文没有提到。
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的，原文没有提到。
+    [[NSUserDefaults standardUserDefaults] setInteger:0
+                                               forKey:@"WebKitCacheModelPreferenceKey"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO
+                                            forKey:@"WebKitDiskImageCacheEnabled"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO
+                                            forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     //缓存类型
@@ -379,11 +366,6 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
-#pragma mark - 手动加载空白网页
-- (void)loadBlank{
-    [self loadURL:@"about:blank"];
-}
-
 
 #pragma mark  - 浏览器返回事件处理
 - (void)navBackAction{
@@ -404,8 +386,6 @@
     self.navigationController.navigationBar.alpha = 0.0;
     
 }
-
-
 
 - (void)leaveOutShowNavigation{
     [self.navigationController setNavigationBarHidden:NO];
