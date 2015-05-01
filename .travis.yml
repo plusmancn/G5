@@ -1,4 +1,4 @@
 language: objective-c
 xcode_workspace: Example/G5.xcworkspace
-xcode_scheme: G5
+xcode_scheme: G5-Example
 xcode_sdk: iphonesimulator
