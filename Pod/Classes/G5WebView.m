@@ -13,6 +13,7 @@
 @interface G5WebView()<UIWebViewDelegate>
 
 @property (nonatomic, weak) id<UIWebViewDelegate> privateDelegate;
+@property (nonatomic, weak) id<UIWebViewDelegate> rawDelegate;
 @property (nonatomic, weak) id<UIWebViewDelegate> outDelegate;
 
 @property (strong,nonatomic) WebViewJavascriptBridge *bridge;
@@ -64,7 +65,7 @@
         G5Log(@"Received message from javascript: %@", data);
         responseCallback(@"Right back javascriptCore");
     }];
-    
+
     /**
      * 消息通知接口
      */
@@ -111,27 +112,43 @@
 #pragma mark - 缓存警告处理，需要设置浏览器代理
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     
-    if ([self.privateDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
+    if (self.privateDelegate && [self.privateDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
         [self.privateDelegate webViewDidFinishLoad:webView];
+    }
+    
+    if (self.rawDelegate && [self.rawDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
+        [self.rawDelegate webViewDidFinishLoad:webView];
     }
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{
-    if ([self.privateDelegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
+    if (self.privateDelegate && [self.privateDelegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
         [self.privateDelegate webViewDidStartLoad:webView];
+    }
+    
+    if (self.rawDelegate && [self.rawDelegate respondsToSelector:@selector(webViewDidStartLoad:)]) {
+        [self.rawDelegate webViewDidStartLoad:webView];
     }
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    if ([self.privateDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
+    if (self.privateDelegate && [self.privateDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
         [self.privateDelegate webView:webView didFailLoadWithError:error];
+    }
+    
+    if (self.rawDelegate && [self.rawDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)]) {
+        [self.rawDelegate webView:webView didFailLoadWithError:error];
     }
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
-    if ([self.privateDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+    if (self.privateDelegate && [self.privateDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
        return [self.privateDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    }
+    
+    if (self.rawDelegate && [self.rawDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+        return [self.rawDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     }
     
     return YES;
@@ -140,11 +157,15 @@
 
 
 -(void)setDelegate:(id<UIWebViewDelegate>)delegate{
+    
     if (delegate == self) {
         [super setDelegate:delegate];
+    }else if([delegate isKindOfClass:[WebViewJavascriptBridge class]]){
+        _rawDelegate = delegate;
     }else{
         _privateDelegate = delegate;
     }
+    
 }
 
 
