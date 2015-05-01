@@ -10,10 +10,20 @@
 #define Pods_G5CommDefine_h
 
 /** 
- *
+ * push方式，浏览器滑动返回
  */
-#define G5_Noti_diabledNativeBackEffect @"G5_Noti_diabledNativeBackEffect" // 禁用浏览器原生滑动返回
+#define G5_Noti_diabledNativeBackEffect @"G5_Noti_diabledNativeBackEffect"
 #define G5_Noti_enabledNativeBackEffect @"G5_Noti_enabledNativeBackEffect"
+
+/*
+ *  System Versioning Preprocessor Macros
+ */
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+#define IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
 
 /**
@@ -21,6 +31,7 @@
  */
 #define NAVIGATION_HEIGHT 64
 #define TABBAR_HEIGHT 44
+#define STATUSBAR_HEIGHT 20
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 

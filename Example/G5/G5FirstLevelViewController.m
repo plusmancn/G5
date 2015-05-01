@@ -29,7 +29,7 @@
         self.title = @"一级网页";
         
         // 网页提前加载，viewDidLoad方法会有闪屏
-        _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0,IOS8?-STATUSBAR_HEIGHT:0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [self.view addSubview:_G5WebView];
         [_G5WebView loadURLWithLocalfile:@"index" query:@""];
     }

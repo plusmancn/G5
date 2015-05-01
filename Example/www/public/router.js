@@ -35,13 +35,13 @@ define(function() {
                 var execResult = reg.exec(location.href);
 
                 if (execResult[1] == page.name) {
-                    jhyx.postNotification({
-                        'name':'G5_Noti_enabledNativeBackEffect'
-                    });
+                    // jhyx.postNotification({
+                    //     'name':'G5_Noti_enabledNativeBackEffect'
+                    // });
                 }else{
-                    jhyx.postNotification({
-                        'name':'G5_Noti_diabledNativeBackEffect'
-                    });
+                    // jhyx.postNotification({
+                    //     'name':'G5_Noti_diabledNativeBackEffect'
+                    // });
                 }
             };
 
