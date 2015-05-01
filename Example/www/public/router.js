@@ -5,7 +5,7 @@ define(function() {
     // 路由需要忽略的路径
     var ignoreList = [
         'index',
-        'firstLevelPage'
+        'form'
     ];
 
     /**

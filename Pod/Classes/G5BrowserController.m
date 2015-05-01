@@ -53,12 +53,6 @@
         
         [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
-        
-        /* status Bar */
-        UIView *statusView = [[UIView alloc] init];
-        statusView.backgroundColor = RGBACOLOR(247, 247, 247, 0.9);
-        statusView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20);
-        [self.view addSubview:statusView];
 
         // 添加返回通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disabledNativeBackEffect) name:G5_Noti_diabledNativeBackEffect object:nil];

@@ -45,7 +45,13 @@
 
 - (void)initOptions{
     self.scrollView.bounces = NO; // 防止网页头尾被拖动
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = RGBCOLOR(247, 247, 248);
+    
+    // 更改status bar 背景色
+    UIView *statusView = [[UIView alloc] init];
+    statusView.backgroundColor = RGBACOLOR(247, 247, 248, 0.9);
+    statusView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20);
+    [self addSubview:statusView];
 }
 
 #pragma mark - 初始化网桥实现
@@ -108,7 +114,8 @@
     if ([self.privateDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
         [self.privateDelegate webViewDidFinishLoad:webView];
     }
-    // webViewDidFinishLoad方法中设置如下
+    
+    /*// webViewDidFinishLoad方法中设置如下
     [[NSUserDefaults standardUserDefaults] setInteger:0
                                                forKey:@"WebKitCacheModelPreferenceKey"];
     [[NSUserDefaults standardUserDefaults] setBool:NO
@@ -124,7 +131,7 @@
     
     NSURLCache *sharedCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     
-    [NSURLCache setSharedURLCache:sharedCache];
+    [NSURLCache setSharedURLCache:sharedCache];*/
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{

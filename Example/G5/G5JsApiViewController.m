@@ -30,26 +30,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    UILabel *tips = [[UILabel alloc] init];
-    tips.numberOfLines = 10;
-    tips.text = @" 弹出方式：push \n 当前页面：native \n Web框架：Framework7 \n html位置：mainBundle";
-    [self.view addSubview:tips];
-    
+    // Do any additional setup after loading the view
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
     [openJsSdk addTarget:self action:@selector(showF7WebDemo) forControlEvents:UIControlEventTouchUpInside];
-    [openJsSdk setTitle:@"打开JsApi示例页面" forState:UIControlStateNormal];
+    [openJsSdk setTitle:@"push G5BrowserController" forState:UIControlStateNormal];
     [self.view addSubview:openJsSdk];
     
-    [tips makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(NAVIGATION_HEIGHT + 40);
-        make.width.lessThanOrEqualTo(SCREEN_WIDTH);
-        make.centerX.equalTo(self.view);
-    }];
     
     [openJsSdk makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tips.bottom).offset(20);
-        make.centerX.equalTo(self.view);
+        make.center.equalTo(self.view);
     }];
 }
 
