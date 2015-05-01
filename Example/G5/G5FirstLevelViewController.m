@@ -21,7 +21,7 @@
 {
     self = [super init];
     if (self) {
-        /*[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];*/
+        /*[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];*/
         
         // 设置TabBar
         UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"一级网页" image:[UIImage imageNamed:@"firstLevel"] tag:2];
@@ -29,7 +29,7 @@
         self.title = @"一级网页";
         
         // 网页提前加载，viewDidLoad方法会有闪屏
-        _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [self.view addSubview:_G5WebView];
         [_G5WebView loadURLWithLocalfile:@"index" query:@""];
     }

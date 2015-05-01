@@ -45,6 +45,7 @@
 
 - (void)initOptions{
     self.scrollView.bounces = NO; // 防止网页头尾被拖动
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 #pragma mark - 初始化网桥实现
