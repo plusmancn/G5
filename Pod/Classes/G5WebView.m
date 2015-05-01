@@ -114,24 +114,6 @@
     if ([self.privateDelegate respondsToSelector:@selector(webViewDidFinishLoad:)]) {
         [self.privateDelegate webViewDidFinishLoad:webView];
     }
-    
-    /*// webViewDidFinishLoad方法中设置如下
-    [[NSUserDefaults standardUserDefaults] setInteger:0
-                                               forKey:@"WebKitCacheModelPreferenceKey"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO
-                                            forKey:@"WebKitDiskImageCacheEnabled"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO
-                                            forKey:@"WebKitOfflineWebApplicationCacheEnabled"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //缓存类型
-    int cacheSizeMemory = 4*1024*1024;
-    
-    int cacheSizeDisk = 32*1024*1024;
-    
-    NSURLCache *sharedCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
-    
-    [NSURLCache setSharedURLCache:sharedCache];*/
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{

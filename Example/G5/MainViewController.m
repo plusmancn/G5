@@ -45,7 +45,7 @@
     [navFirst setNavigationBarHidden:YES];
     [self addChildViewController:navFirst];
     
-    [self setSelectedIndex:2];
+    [self setSelectedIndex:0];
     
 }
 
