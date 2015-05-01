@@ -27,11 +27,6 @@
         UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"一级网页" image:[UIImage imageNamed:@"firstLevel"] tag:2];
         self.tabBarItem = tabBarItem;
         self.title = @"一级网页";
-        
-        // 网页提前加载，viewDidLoad方法会有闪屏
-        _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0,IOS8?-STATUSBAR_HEIGHT:0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [self.view addSubview:_G5WebView];
-        [_G5WebView loadURLWithLocalfile:@"index" query:@""];
     }
     return self;
 }
@@ -39,6 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // viewDidLoad方法会有闪屏
+    _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_G5WebView loadURLWithLocalfile:@"index" query:@""];
+    [self.view addSubview:_G5WebView];
 }
 
 - (void)didReceiveMemoryWarning {
