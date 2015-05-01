@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 plusmancn. All rights reserved.
 //
 
-SpecBegin(InitialSpecs)
+/*SpecBegin(InitialSpecs)
 
 describe(@"these will fail", ^{
 
@@ -35,11 +35,11 @@ describe(@"these will pass", ^{
         expect(@"team").toNot.contain(@"I");
     });
     
-    /*it(@"will wait and succeed", ^AsyncBlock {
+    it(@"will wait and succeed", ^AsyncBlock {
         waitUntil(^(DoneCallback done) {
             done();
         });
-    });*/
+    });
 });
 
-SpecEnd
+SpecEnd*/
