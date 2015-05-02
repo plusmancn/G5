@@ -33,7 +33,7 @@
     // Do any additional setup after loading the view
     LineButton *openJsSdk = [[LineButton alloc] initWithFrame:CGRectZero LineButtonType:LineButtonBule];
     [openJsSdk addTarget:self action:@selector(showF7WebDemo) forControlEvents:UIControlEventTouchUpInside];
-    [openJsSdk setTitle:@"push G5BrowserController" forState:UIControlStateNormal];
+    [openJsSdk setTitle:@"push方式打开【mainBundle】网页" forState:UIControlStateNormal];
     [self.view addSubview:openJsSdk];
     
     
@@ -48,7 +48,7 @@
 - (void)showF7WebDemo{
     
     G5BrowserController *G5Browser = [[G5BrowserController alloc] init];
-    [G5Browser loadURLWithLocalfile:@"index" query:@""];
+    [G5Browser loadURLWithLocalfile:@"index" query:@"" isInMainBundle:YES];
     [self.navigationController pushViewController:G5Browser animated:YES];
     
 }

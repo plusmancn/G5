@@ -13,7 +13,9 @@
 
 // 加载网页地址
 - (void)loadURL:(NSString *)url;
-- (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query;
+- (void)loadURLWithLocalfile:(NSString *)localFile
+                       query:(NSString *)query
+              isInMainBundle:(BOOL)isInMainBundle;
 
 
 @end

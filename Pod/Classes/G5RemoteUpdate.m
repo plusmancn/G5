@@ -7,6 +7,8 @@
 //
 
 #import "G5RemoteUpdate.h"
+#import "G5CommDefine.h"
+#import "G5AlertView.h"
 
 // 动态菊花
 #import "MBProgressHUD+G5.h"
@@ -19,35 +21,44 @@
 @implementation G5RemoteUpdate
 
 // 触发器
-+ (void)updateLocalCode:(BOOL)slient showView:(UIView *)showView{
-
-    if ([self getCodeVersion] == 0) {
++ (void)updateLocalCodeSlient:(BOOL)slient showView:(UIView *)showView{
+    // 同时满足 文件存在 && 首次安装
+    NSString *zipPath = [[NSBundle mainBundle] pathForResource:@"www" ofType:@"zip"];
+    if ([self getCodeVersion] == 0 && [[NSFileManager defaultManager] fileExistsAtPath:zipPath]) {
+        [[G5AlertView sharedAlertView] TTAlert:@"版本初始化" message:@"首次安装将从bundle复制，并设置版本号为1"];
         [self installCode:1];
     }else{
         
-        /*NSDictionary *params = @{
-                                 @"platform":@"ios"
+        NSDictionary *params = @{
+                                 @"platform":@"ios",
+                                 @"appid":@"appid_g5"
                                  };
+        // 展现登录菊花
+        MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
+        HUD.labelFont = [UIFont systemFontOfSize:13];
+        HUD.labelText = @"正在查询代码版本";
         
-        // 获取远程下载地址
-        [AVCloud callFunctionInBackground:@"verLatest" withParameters:params block:^(id object, NSError *error) {
-            
+        [G5RemoteUpdate callCloudFunc:@"verLatest" params:params block:^(id object, NSError *error) {                        dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideAllHUDsForView:showView animated:YES];
+            });
             if (error) {
+                [[G5AlertView sharedAlertView] TTAlert:@"网络连接错误" message:@"请检查你的网络设置"];
                 return;
             }
             
-            if([self getCodeVersion] - [object[@"data"][@"version"] longValue] < 0){
+            if ([object[@"errorCode"] intValue] != 0) {
+                [[G5AlertView sharedAlertView] TTAlert:@"查询错误" message:object[@"errorMessage"]];
+            }else if([self getCodeVersion] - [object[@"data"][@"version"] longValue] < 0){
                 
                 NSString *message = [NSString stringWithFormat:@"大小:%@，是否立即下载？",object[@"data"][@"zipSize"]];
                 
                 
                 if([object[@"data"][@"isForceUpdate"] intValue] == 0){
                     
-                    [[JuAlertView sharedAlertView] TTAlertC:@"会议数据有更新" message:message cancelButtonTitle:@"取消" otherButtonTitles:@"下载" confirmBlock:^(NSString *fromWhere) {
+                    [[G5AlertView sharedAlertView] TTAlertC:@"会议数据有更新" message:message cancelButtonTitle:@"取消" otherButtonTitles:@"下载" confirmBlock:^(NSString *fromWhere) {
                         
                         [self setCodeVersion:[object[@"data"][@"version"] longValue]];
                         [self updateLocalCodeAction:object[@"data"][@"zipUrl"] showView:showView];
-                        
                     }];
                     
                 }else{
@@ -60,10 +71,11 @@
             }else{
                 if (!slient) {
                     NSString *message = [NSString stringWithFormat:@"当前数据版本: %ld",(long)[self getCodeVersion]];
-                    [[JuAlertView sharedAlertView] TTAlert:@"已经是最新版啦" message:message];
+                    [[G5AlertView sharedAlertView] TTAlert:@"已经是最新版啦" message:message];
                 }
             }
-        }];*/
+
+        }];
         
     }
 }
@@ -71,34 +83,23 @@
 
 // 更新代码库
 + (void)updateLocalCodeAction:(NSString *)zipUrl showView:(UIView *)showView{
-    
-    // 展现登录菊花
-    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
-    HUD.labelFont = [UIFont systemFontOfSize:13];
-    HUD.labelText = @"拉取会议数据中....";
-    
     // 下载前清空远程目录
     [self deleteOldFolder:@"remotePub"];
     
+    // 进度条
+    MBProgressHUD *hudBarLine = [MBProgressHUD showBarLineProcess:showView labelText:@"下载部署中...."];
+    
     // 下载远程www代码包
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:zipUrl]];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    NSString *path = [NSString stringWithFormat:@"%@%@",[self getFilesPath:@"remotePub/"],@"wwwZip.zip"];
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
     
-    NSURL *URL = [NSURL URLWithString:zipUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        
-        
-        NSURL *documentsDirectoryURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@",[self getFilesPath:@"remotePub/"],[response suggestedFilename]]];
-        
-        return documentsDirectoryURL;
-        
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Successfully downloaded file to %@", path);
         
         // 解压缩操作
-        NSString *zipPath = [[self getFilesPath:@"remotePub/"] stringByAppendingString:[filePath lastPathComponent]];
-        
+        NSString *zipPath = path;
         NSString *destinationPath = [self getFilesPath:@""];
         
         // 删除旧文件夹
@@ -109,18 +110,30 @@
         if ([zip UnzipOpenFile:zipPath]) {
             [zip UnzipFileTo:destinationPath overWrite:YES];
             [zip UnzipCloseFile];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideAllHUDsForView:showView animated:YES];
+                [MBProgressHUD showSuccessWithView:showView Text:@"部署成功" hideDelayTime:2.0];
+            });
+            
         }else{
-            // to do something
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideAllHUDsForView:showView animated:YES];
+                [MBProgressHUD showFailWithView:showView Text:@"部署失败" hideDelayTime:2.0];
+            });
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideAllHUDsForView:showView animated:YES];
-            [MBProgressHUD showSuccessWithView:showView Text:@"会议数据更新成功" hideDelayTime:1.0];
-        });
-        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        G5Log(@"%@",error);
     }];
     
-    [downloadTask resume];
+    [operation start];
+    
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
+        G5Log(@"%f",progress);
+        hudBarLine.progress = progress;
+    }];
 }
 
 
@@ -192,6 +205,53 @@
         }
     }
     return filesPath;
+}
+
+// 本地文件加载
++ (NSString *)loadMainBundleFile:(NSString *)pathForResource
+                     ofType:(NSString *)ofType
+                inDirectory:(NSString *)inDirectory{
+    NSString *htmlFileBody = [[NSBundle mainBundle] pathForResource:pathForResource ofType:ofType inDirectory:inDirectory];
+    
+    NSString *htmlStringBody = [NSString stringWithContentsOfFile:htmlFileBody encoding:NSUTF8StringEncoding error:nil];
+    
+    return htmlStringBody;
+}
+
+// 加载实时更新文件
++ (NSString *)loadFileSystemFile:(NSString *)pathForResource
+                           ofType:(NSString *)ofType
+                      inDirectory:(NSString *)inDirectory{
+    
+    NSString *path = [self getFilesPath:inDirectory];
+    
+    NSString *htmlFileBody = [NSString stringWithFormat:@"%@%@.%@",path,pathForResource,ofType];
+    
+    NSString *htmlStringBody = [NSString stringWithContentsOfFile:htmlFileBody encoding:NSUTF8StringEncoding error:nil];
+    
+    return htmlStringBody;
+}
+
+
+/**
+ * LeanCloud云函数调用
+ */
++ (void)callCloudFunc:(NSString *)func
+               params:(NSDictionary *)params
+                block:(AVResultBlock)block
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSMutableDictionary *lastParams = [NSMutableDictionary dictionaryWithDictionary:params];
+    [lastParams setObject:func forKey:@"func"];
+    
+    [manager POST:@"http://g5-server.avosapps.com/callCloudFunc"
+       parameters:lastParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           block(responseObject,nil);
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           block(nil,error);
+    }];
+    
 }
 
 @end

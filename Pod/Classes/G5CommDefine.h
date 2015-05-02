@@ -44,6 +44,10 @@
 #define UIColorFromRGB(rgb) [UIColor colorWithRed:((rgb) & 0xFF0000 >> 16)/255.0 green:((rgb) & 0xFF00 >> 8)/255.0 blue:((rgb) & 0xFF)/255.0 alpha:1.0]
 
 
+/**
+ * G5 resourceBundle
+ */
+#define G5_BUNDLE [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"G5" ofType:@"bundle"]]
 
 /**
  * 自定义log输出，DEBUG 为系统变量

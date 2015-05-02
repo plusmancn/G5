@@ -1,45 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
-    <!-- Path to Framework7 Library CSS-->
-    <link rel="stylesheet" href="./bower_components/Framework7/dist/css/framework7.min.css">
-    <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="./bower_components/Framework7/dist/css/my-app.css">
-  </head>
-  <body>
-    <!-- Status bar overlay for fullscreen mode-->
-    <div class="statusbar-overlay"></div>
-    <!-- Panels overlay-->
-    <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
-      <div class="content-block">
-        <p>Left panel content goes here</p>
-      </div>
-    </div>
-    <!-- Right panel with cover effect-->
-    <div class="panel panel-right panel-cover">
-      <div class="content-block">
-        <p>Right panel content goes here</p>
-      </div>
-    </div>
-    <!-- Views-->
-    <div class="views">
-      <!-- Your main view, should have "view-main" class-->
-      <div class="view view-main">
-        <!-- Top Navbar-->
-<!-- ++++++++++++++++++++++++++++++++ -->
+
 
 <!-- navbar header -->
 <div class="navbar">
   <div class="navbar-inner">
     <!-- We have home navbar without left link-->
-    <div class="center sliding">web app部分</div>
+    <div class="center sliding">webapp【MainBundle】</div>
     <div class="right">
       <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
     </div>
@@ -56,6 +21,8 @@
       <div class="content-block">
         <div class="content-block-inner">
           <p>web 部分基于Framework7开发，F7类似于ionic；UI和动态效果符合ios app的习惯</p>
+          <p>文件加载分为Header Body Footer 三部分，为了配合单页面webapp</p>
+          <p>webapp【MainBundle】部分无法远程更新</p>
         </div>
       </div>
 
@@ -94,16 +61,3 @@
 <!-- <div class="toolbar">
   <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
 </div> -->
-<!-- ++++++++++++++++++++++++++++++++ -->
-
-      </div>
-    </div>
-    
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="./bower_components/Framework7/dist/js/framework7.min.js"></script>
-    <!-- js-sdk 文件路径 -->
-    <script type="text/javascript" src="public/lib/jhyx-1.0.0.js?bust=versionMark"></script>
-    <!-- Path to your require js-->
-    <script data-main="public/app" src="public/require.js?bust=versionMark" data-version="versionMark" id="appEntrance"></script>
-  </body>
-</html>

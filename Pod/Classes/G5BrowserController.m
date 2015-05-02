@@ -97,10 +97,12 @@
 }
 
 
-- (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query{
+- (void)loadURLWithLocalfile:(NSString *)localFile
+                       query:(NSString *)query
+              isInMainBundle:(BOOL)isInMainBundle{
     /*测试代码*/
     _isShowNavigationBar = YES;
-    [_G5WebView loadURLWithLocalfile:localFile query:@""];
+    [_G5WebView loadURLWithLocalfile:localFile query:query isInMainBundle:isInMainBundle];
 }
 
 

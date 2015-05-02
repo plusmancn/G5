@@ -36,7 +36,7 @@
     // Do any additional setup after loading the view.
     // viewDidLoad方法会有闪屏
     _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [_G5WebView loadURLWithLocalfile:@"index" query:@""];
+    [_G5WebView loadURLWithLocalfile:@"index" query:@"" isInMainBundle:YES];
     [self.view addSubview:_G5WebView];
 }
 

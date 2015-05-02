@@ -23,13 +23,20 @@
 
 +(void)showSuccessWithView:(UIView *)view Text:(NSString *)text hideDelayTime:(NSTimeInterval)time{
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
-    hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:@"success"]];
+
+    if (IOS8) {
+        hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:@"success" inBundle:G5_BUNDLE compatibleWithTraitCollection:nil]];
+    }
+    
     [self makeHudCustomViewMode:hud view:view Text:text hideDelayTime:time];
 }
 
+
 +(void)showFailWithView:(UIView *)view Text:(NSString *)text hideDelayTime:(NSTimeInterval)time{
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
-    hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:@"error"]];
+    if (IOS8) {
+        hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:@"error" inBundle:G5_BUNDLE compatibleWithTraitCollection:nil]];
+    }
     [self makeHudCustomViewMode:hud view:view Text:text hideDelayTime:time];
 }
 
@@ -43,5 +50,19 @@
     [hud hide:YES afterDelay:time];
 }
 
+
++ (MBProgressHUD *)showBarLineProcess:(UIView *)view labelText:(NSString *)labelText{
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
+    hud = [[MBProgressHUD alloc] initWithView:view];
+    [view addSubview:hud];
+    
+    // Set determinate bar mode
+    hud.mode = MBProgressHUDModeDeterminateHorizontalBar;
+    hud.labelText = labelText;
+    // myProgressTask uses the HUD instance to update progress
+    hud.removeFromSuperViewOnHide = YES;
+    [hud show:YES];
+    return hud;
+}
 
 @end

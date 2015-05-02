@@ -9,12 +9,17 @@
 #import "G5WebView.h"
 #import "WebViewJavascriptBridge.h" // Js-Bridge
 #import "G5JsSdk.h"
+#import "G5RemoteUpdate.h"
 
 @interface G5WebView()<UIWebViewDelegate>
 
 @property (nonatomic, weak) id<UIWebViewDelegate> privateDelegate;
 @property (nonatomic, weak) id<UIWebViewDelegate> rawDelegate;
 @property (nonatomic, weak) id<UIWebViewDelegate> outDelegate;
+
+// 内部变量
+@property (nonatomic ,strong) NSString *html;
+@property (nonatomic ,strong) NSURL *baseUrl;
 
 @property (strong,nonatomic) WebViewJavascriptBridge *bridge;
 
@@ -84,28 +89,41 @@
 
 
 #pragma mark - 加载本地文件
-- (void)loadURLWithLocalfile:(NSString *)localFile query:(NSString *)query{
+- (void)loadURLWithLocalfile:(NSString *)localFile
+                       query:(NSString *)query
+              isInMainBundle:(BOOL)isInMainBundle{
     
-    /*_isShowNavigationBar = YES;
     
-     NSString *header = [JuCommonFunctions loadLocalUpdateFile:@"header" ofType:@"html" inDirectory:@"www/comm/"];
-     NSString *body   = [JuCommonFunctions loadLocalUpdateFile:localFile ofType:@"html" inDirectory:@"www/"];
-     NSString *footer = [JuCommonFunctions loadLocalUpdateFile:@"footer" ofType:@"html" inDirectory:@"www/comm/"];
-     
-     NSString *html = [NSString stringWithFormat:@"%@%@%@",header,body,footer];
-     
-     // 添加参数
-     NSURL *baseUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@.%@",[JuCommonFunctions getFilesPath:@"www/"],localFile,@"html"]];
-     
-     NSString *theAbsoluteURLString = [baseUrl absoluteString];
-     NSString *absoluteURLwithQueryString = [theAbsoluteURLString stringByAppendingString: query];
-     NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
-     
-     [_G5WebView loadHTMLString:html baseURL:finalURL];*/
+    if (isInMainBundle) {
+        NSString *header = [G5RemoteUpdate loadMainBundleFile:@"header" ofType:@"html" inDirectory:@"www/comm/"];
+        NSString *body   = [G5RemoteUpdate loadMainBundleFile:localFile ofType:@"html" inDirectory:@"www/"];
+        NSString *footer = [G5RemoteUpdate loadMainBundleFile:@"footer" ofType:@"html" inDirectory:@"www/comm/"];
+        
+        _html = [NSString stringWithFormat:@"%@%@%@",header,body,footer];
+        
+        NSString *baseUrlString = [[NSBundle mainBundle] pathForResource:localFile ofType:@"html" inDirectory:@"www/"];
+        
+        _baseUrl = [NSURL fileURLWithPath:baseUrlString];
+        
+        
+    }else{
+        
+        NSString *header = [G5RemoteUpdate loadFileSystemFile:@"header" ofType:@"html" inDirectory:@"www/comm/"];
+        NSString *body   = [G5RemoteUpdate loadFileSystemFile:localFile ofType:@"html" inDirectory:@"www/"];
+        NSString *footer = [G5RemoteUpdate loadFileSystemFile:@"footer" ofType:@"html" inDirectory:@"www/comm/"];
+        
+        _html = [NSString stringWithFormat:@"%@%@%@",header,body,footer];
+        
+        _baseUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@.%@",[G5RemoteUpdate getFilesPath:@"www/"],localFile,@"html"]];
+    }
     
-    NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:localFile ofType:@"html" inDirectory:@"www"]];
-    [self loadRequest:[[NSURLRequest alloc] initWithURL:baseUrl]];
     
+     
+    NSString *theAbsoluteURLString = [_baseUrl absoluteString];
+    NSString *absoluteURLwithQueryString = [theAbsoluteURLString stringByAppendingString:query];
+    NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
+    
+    [self loadHTMLString:_html baseURL:finalURL];
 }
 
 

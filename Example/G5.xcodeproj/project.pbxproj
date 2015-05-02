@@ -24,6 +24,7 @@
 		B43AF4961AF1CB0E00D2C666 /* www in Resources */ = {isa = PBXBuildFile; fileRef = B43AF4951AF1CB0E00D2C666 /* www */; };
 		B49395971AEF748900EA4F14 /* G5JsApiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49395961AEF748900EA4F14 /* G5JsApiViewController.m */; };
 		B493959A1AEF754D00EA4F14 /* G5CodeDropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49395991AEF754D00EA4F14 /* G5CodeDropViewController.m */; };
+		B4DFCFD91AF5164C0090E3AF /* www.zip in Resources */ = {isa = PBXBuildFile; fileRef = B4DFCFD81AF5164C0090E3AF /* www.zip */; };
 		B4F942341AEE998A00CBE804 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F9422E1AEE998A00CBE804 /* MainViewController.m */; };
 		B4F942361AEE998A00CBE804 /* LineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F942331AEE998A00CBE804 /* LineButton.m */; };
 		B4F9423B1AEE99AA00CBE804 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F942391AEE99AA00CBE804 /* BaseNavigationController.m */; };
@@ -70,6 +71,7 @@
 		B49395961AEF748900EA4F14 /* G5JsApiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G5JsApiViewController.m; sourceTree = "<group>"; };
 		B49395981AEF754D00EA4F14 /* G5CodeDropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G5CodeDropViewController.h; sourceTree = "<group>"; };
 		B49395991AEF754D00EA4F14 /* G5CodeDropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G5CodeDropViewController.m; sourceTree = "<group>"; };
+		B4DFCFD81AF5164C0090E3AF /* www.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = www.zip; sourceTree = "<group>"; };
 		B4F9422D1AEE998A00CBE804 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B4F9422E1AEE998A00CBE804 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		B4F942321AEE998A00CBE804 /* LineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineButton.h; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				B420AE8B1AF22FEC00D10FD5 /* G5FirstLevelViewController.h */,
 				B420AE8C1AF22FEC00D10FD5 /* G5FirstLevelViewController.m */,
 				B4F9423C1AEE9C5200CBE804 /* LaunchScreen.xib */,
+				B4DFCFD81AF5164C0090E3AF /* www.zip */,
 				B4F942371AEE99AA00CBE804 /* common */,
 				B4F942311AEE998A00CBE804 /* views */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -293,9 +296,6 @@
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = TVER26DQHS;
 					};
-					6003F5AD195388D20070C39A = {
-						TestTargetID = 6003F589195388D20070C39A;
-					};
 				};
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "G5" */;
@@ -326,6 +326,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				B4F9423E1AEE9C5200CBE804 /* LaunchScreen.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				B4DFCFD91AF5164C0090E3AF /* www.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,7 +573,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D200FCC9B791D1E843132B46 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/G5.app/G5";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -586,7 +586,6 @@
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -595,7 +594,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E20E1E5A3686245C7D6D5C2 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/G5.app/G5";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -605,7 +603,6 @@
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
