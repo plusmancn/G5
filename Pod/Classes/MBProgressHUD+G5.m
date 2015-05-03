@@ -23,17 +23,15 @@
 
 +(void)showSuccessWithView:(UIView *)view Text:(NSString *)text hideDelayTime:(NSTimeInterval)time{
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
-
-
-    hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"G5.bundle/%@", @"success"]]];
-    
+    hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:G5_BUNDLE_FUNC(@"success")]];
     [self makeHudCustomViewMode:hud view:view Text:text hideDelayTime:time];
+    
 }
 
 
 +(void)showFailWithView:(UIView *)view Text:(NSString *)text hideDelayTime:(NSTimeInterval)time{
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
-    hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"G5.bundle/%@", @"error"]]];
+    hud.customView = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:G5_BUNDLE_FUNC(@"error")]];
     [self makeHudCustomViewMode:hud view:view Text:text hideDelayTime:time];
 }
 

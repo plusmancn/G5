@@ -48,6 +48,7 @@
  * G5 resourceBundle
  */
 #define G5_BUNDLE [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"G5" ofType:@"bundle"]]
+#define G5_BUNDLE_FUNC(fileName) [NSString stringWithFormat:@"G5.bundle/%@",fileName]
 
 /**
  * 自定义log输出，DEBUG 为系统变量
