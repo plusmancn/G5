@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface G5JsSdk : NSObject
-
 /**
  * 发送消息通知，范围为：NSNotificationCenter defaultCenter
  */

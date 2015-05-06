@@ -25,6 +25,7 @@
 		B49395971AEF748900EA4F14 /* G5JsApiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49395961AEF748900EA4F14 /* G5JsApiViewController.m */; };
 		B493959A1AEF754D00EA4F14 /* G5CodeDropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49395991AEF754D00EA4F14 /* G5CodeDropViewController.m */; };
 		B4DFCFD91AF5164C0090E3AF /* www.zip in Resources */ = {isa = PBXBuildFile; fileRef = B4DFCFD81AF5164C0090E3AF /* www.zip */; };
+		B4F241E31AF9161400BD8676 /* G5UserJsSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F241E21AF9161400BD8676 /* G5UserJsSdk.m */; };
 		B4F942341AEE998A00CBE804 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F9422E1AEE998A00CBE804 /* MainViewController.m */; };
 		B4F942361AEE998A00CBE804 /* LineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F942331AEE998A00CBE804 /* LineButton.m */; };
 		B4F9423B1AEE99AA00CBE804 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F942391AEE99AA00CBE804 /* BaseNavigationController.m */; };
@@ -72,6 +73,8 @@
 		B49395981AEF754D00EA4F14 /* G5CodeDropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G5CodeDropViewController.h; sourceTree = "<group>"; };
 		B49395991AEF754D00EA4F14 /* G5CodeDropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G5CodeDropViewController.m; sourceTree = "<group>"; };
 		B4DFCFD81AF5164C0090E3AF /* www.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = www.zip; sourceTree = "<group>"; };
+		B4F241E11AF9161400BD8676 /* G5UserJsSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = G5UserJsSdk.h; sourceTree = "<group>"; };
+		B4F241E21AF9161400BD8676 /* G5UserJsSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = G5UserJsSdk.m; sourceTree = "<group>"; };
 		B4F9422D1AEE998A00CBE804 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B4F9422E1AEE998A00CBE804 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		B4F942321AEE998A00CBE804 /* LineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineButton.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				B49395991AEF754D00EA4F14 /* G5CodeDropViewController.m */,
 				B420AE8B1AF22FEC00D10FD5 /* G5FirstLevelViewController.h */,
 				B420AE8C1AF22FEC00D10FD5 /* G5FirstLevelViewController.m */,
+				B4F241E11AF9161400BD8676 /* G5UserJsSdk.h */,
+				B4F241E21AF9161400BD8676 /* G5UserJsSdk.m */,
 				B4F9423C1AEE9C5200CBE804 /* LaunchScreen.xib */,
 				B4DFCFD81AF5164C0090E3AF /* www.zip */,
 				B4F942371AEE99AA00CBE804 /* common */,
@@ -408,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4F241E31AF9161400BD8676 /* G5UserJsSdk.m in Sources */,
 				6003F59E195388D20070C39A /* G5AppDelegate.m in Sources */,
 				B493959A1AEF754D00EA4F14 /* G5CodeDropViewController.m in Sources */,
 				B420AE8D1AF22FEC00D10FD5 /* G5FirstLevelViewController.m in Sources */,

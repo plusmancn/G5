@@ -7,7 +7,6 @@
 //
 
 #import "G5WebView.h"
-#import "WebViewJavascriptBridge.h" // Js-Bridge
 #import "G5JsSdk.h"
 #import "G5RemoteUpdate.h"
 
@@ -21,11 +20,10 @@
 @property (nonatomic ,strong) NSString *html;
 @property (nonatomic ,strong) NSURL *baseUrl;
 
-@property (strong,nonatomic) WebViewJavascriptBridge *bridge;
-
 @end
 
 @implementation G5WebView
+
 
 - (instancetype)init
 {
@@ -36,6 +34,7 @@
     }
     return self;
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -77,6 +76,8 @@
     [_bridge registerHandler:@"postNotification" handler:^(id data, WVJBResponseCallback responseCallback) {
         [G5JsSdk postNotification:data[@"name"]];
     }];
+    
+    
 }
 
 #pragma mark -  网页加载

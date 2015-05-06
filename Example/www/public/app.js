@@ -4,6 +4,8 @@ requirejs.config({
     "paths": {
         jquery:'lib/jquery-2.1.3.min',
         jqueryValidator:'lib/jquery.form-validator.min',
+        d3:'../bower_components/d3/d3.min',
+        d3liquidFillGauge:'lib/d3Plugin/liquidFillGauge'
     },
     "shim": {
         "jqueryValidator": ["jquery"],
