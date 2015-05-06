@@ -21,73 +21,76 @@
 @implementation G5RemoteUpdate
 
 // 触发器
-+ (void)updateLocalCodeSlient:(BOOL)slient showView:(UIView *)showView{
-    // 同时满足 文件存在 && 首次安装
-    NSString *zipPath = [[NSBundle mainBundle] pathForResource:@"www" ofType:@"zip"];
-    if ([self getCodeVersion] == 0 && [[NSFileManager defaultManager] fileExistsAtPath:zipPath]) {
-        [[G5AlertView sharedAlertView] TTAlert:@"版本初始化" message:@"首次安装将从bundle复制，并设置版本号为1"];
-        [self installCode:1];
-    }else{
-        
++ (void)updateLocalCodeSlient:(BOOL)slient
+                     showView:(UIView *)showView
+                 updatePreTip:(NSString *)updatePreTip
+                    updateingTip:(NSString *)updateingTip
+                 updateEndTip:(NSString *)updateEndTip{
         NSDictionary *params = @{
                                  @"platform":@"ios",
                                  @"appid":@"appid_g5"
                                  };
-        // 展现登录菊花
-        MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
-        HUD.labelFont = [UIFont systemFontOfSize:13];
-        HUD.labelText = @"正在查询代码版本";
+    // 展现登录菊花
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
+    HUD.labelFont = [UIFont systemFontOfSize:13];
+    HUD.labelText = @"连接网络中...";
+    
+    [G5RemoteUpdate callCloudFunc:@"verLatest" params:params block:^(id object, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:showView animated:YES];
+        });
+        if (error) {
+            [[G5AlertView sharedAlertView] TTAlert:@"网络连接错误" message:@"请检查你的网络设置"];
+            return;
+        }
         
-        [G5RemoteUpdate callCloudFunc:@"verLatest" params:params block:^(id object, NSError *error) {                        dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideAllHUDsForView:showView animated:YES];
-            });
-            if (error) {
-                [[G5AlertView sharedAlertView] TTAlert:@"网络连接错误" message:@"请检查你的网络设置"];
-                return;
-            }
+        if ([object[@"errorCode"] intValue] != 0) {
+            [[G5AlertView sharedAlertView] TTAlert:@"报错啦！" message:object[@"errorMessage"]];
+        }else if([self getCodeVersion] - [object[@"data"][@"version"] longValue] < 0){
             
-            if ([object[@"errorCode"] intValue] != 0) {
-                [[G5AlertView sharedAlertView] TTAlert:@"查询错误" message:object[@"errorMessage"]];
-            }else if([self getCodeVersion] - [object[@"data"][@"version"] longValue] < 0){
+            NSString *message = [NSString stringWithFormat:@"大小:%@，是否立即下载？",object[@"data"][@"zipSize"]];
+            
+            if([object[@"data"][@"isForceUpdate"] intValue] == 0){
                 
-                NSString *message = [NSString stringWithFormat:@"大小:%@，是否立即下载？",object[@"data"][@"zipSize"]];
-                
-                
-                if([object[@"data"][@"isForceUpdate"] intValue] == 0){
-                    
-                    [[G5AlertView sharedAlertView] TTAlertC:@"会议数据有更新" message:message cancelButtonTitle:@"取消" otherButtonTitles:@"下载" confirmBlock:^(NSString *fromWhere) {
-                        
-                        [self setCodeVersion:[object[@"data"][@"version"] longValue]];
-                        [self updateLocalCodeAction:object[@"data"][@"zipUrl"] showView:showView];
-                    }];
-                    
-                }else{
+                [[G5AlertView sharedAlertView] TTAlertC:updatePreTip message:message cancelButtonTitle:@"取消" otherButtonTitles:@"更新" confirmBlock:^(NSString *fromWhere) {
                     
                     [self setCodeVersion:[object[@"data"][@"version"] longValue]];
-                    [self updateLocalCodeAction:object[@"data"][@"zipUrl"] showView:showView];
-                    
-                }
+                    [self updateLocalCodeAction:object[@"data"][@"zipUrl"]
+                                       showView:showView
+                                   updateingTip:updateingTip
+                                   updateEndTip:updateEndTip
+                     ];
+                }];
                 
             }else{
-                if (!slient) {
-                    NSString *message = [NSString stringWithFormat:@"当前数据版本: %ld",(long)[self getCodeVersion]];
-                    [[G5AlertView sharedAlertView] TTAlert:@"已经是最新版啦" message:message];
-                }
+                [self setCodeVersion:[object[@"data"][@"version"] longValue]];
+                [self updateLocalCodeAction:object[@"data"][@"zipUrl"]
+                                   showView:showView
+                               updateingTip:updateingTip
+                               updateEndTip:updateEndTip
+                 ];
             }
-
-        }];
-        
-    }
+        }else{
+            if (!slient) {
+                NSString *message = [NSString stringWithFormat:@"当前数据版本: %ld",(long)[self getCodeVersion]];
+                [[G5AlertView sharedAlertView] TTAlert:@"已经是最新版啦" message:message];
+            }
+        }
+    }];
+    
 }
 
 
 // 更新代码库
-+ (void)updateLocalCodeAction:(NSString *)zipUrl showView:(UIView *)showView{
++ (void)updateLocalCodeAction:(NSString *)zipUrl
+                     showView:(UIView *)showView
+                 updateingTip:(NSString *)updateingTip
+                 updateEndTip:(NSString *)updateEndTip{
     // 下载前清空远程目录
     [self deleteOldFolder:@"remotePub"];
     
     // 进度条
-    MBProgressHUD *hudBarLine = [MBProgressHUD showBarLineProcess:showView labelText:@"下载部署中...."];
+    MBProgressHUD *hudBarLine = [MBProgressHUD showBarLineProcess:showView labelText:updateingTip];
     
     // 下载远程www代码包
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:zipUrl]];
@@ -96,7 +99,7 @@
     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Successfully downloaded file to %@", path);
+        G5Log(@"Successfully downloaded file to %@", path);
         
         // 解压缩操作
         NSString *zipPath = path;
@@ -113,13 +116,13 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:showView animated:YES];
-                [MBProgressHUD showSuccessWithView:showView Text:@"部署成功" hideDelayTime:2.0];
+                [MBProgressHUD showSuccessWithView:showView Text:updateEndTip hideDelayTime:2.0];
             });
             
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:showView animated:YES];
-                [MBProgressHUD showFailWithView:showView Text:@"部署失败" hideDelayTime:2.0];
+                [MBProgressHUD showFailWithView:showView Text:@"报错啦！" hideDelayTime:2.0];
             });
         }
         
@@ -137,7 +140,10 @@
 }
 
 
-// 本地安装包
+/**
+ * 本地安装代码库
+ * 禁用：app store 不允许在用户未操作的情况下，向用户目录写数据
+ */
 + (void)installCode:(NSInteger)version{
     [self deleteOldFolder:@"www"];
     [self deleteOldFolder:@"remotePub"];
@@ -154,7 +160,6 @@
     if ([zip UnzipOpenFile:destinationPath]) {
         [zip UnzipFileTo:[self getFilesPath:@""] overWrite:YES];
         [zip UnzipCloseFile];
-        
         [self setCodeVersion:version];
     }else{
         // to do something
@@ -172,17 +177,16 @@
 
 // 获取文件版本
 + (NSInteger)getCodeVersion{
-    
     NSInteger version = [[NSUserDefaults standardUserDefaults] integerForKey:@"htmlCodeVersion"];
-    
     if (!version) {
         return 0;
     }
-
     return version;
 }
 
-// 设置版本号
+/**
+ * 设置版本号
+ */
 + (void)setCodeVersion:(NSInteger)version{
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:version] forKey:@"htmlCodeVersion"];
@@ -218,7 +222,9 @@
     return htmlStringBody;
 }
 
-// 加载实时更新文件
+/**
+ * 加载实时更新文件
+ */
 + (NSString *)loadFileSystemFile:(NSString *)pathForResource
                            ofType:(NSString *)ofType
                       inDirectory:(NSString *)inDirectory{
@@ -231,7 +237,6 @@
     
     return htmlStringBody;
 }
-
 
 /**
  * LeanCloud云函数调用
@@ -253,5 +258,7 @@
     }];
     
 }
+
+
 
 @end

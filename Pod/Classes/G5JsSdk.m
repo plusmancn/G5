@@ -15,4 +15,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:nil];
 }
 
++ (void)openUrl:(NSString *)url{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
 @end

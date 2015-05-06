@@ -70,14 +70,14 @@
         responseCallback(@"Right back javascriptCore");
     }];
 
-    /**
-     * 消息通知接口
-     */
+    
     [_bridge registerHandler:@"postNotification" handler:^(id data, WVJBResponseCallback responseCallback) {
         [G5JsSdk postNotification:data[@"name"]];
     }];
     
-    
+    [_bridge registerHandler:@"openUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [G5JsSdk openUrl:data[@"url"]];
+    }];
 }
 
 #pragma mark -  网页加载

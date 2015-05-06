@@ -7,14 +7,11 @@
 //
 
 #import "G5BrowserController.h"
-#import "G5WebView.h"
 
 @interface G5BrowserController ()
 {
     // vars
 }
-
-@property (strong,nonatomic) G5WebView *G5WebView;
 @property (strong,nonatomic) NSMutableArray *visitedURLS;
 @property (nonatomic , weak) UIView * bgView ;
 @property (nonatomic , assign) CGFloat barAlpha;
@@ -30,7 +27,6 @@
 #pragma mark - 单例
 + (instancetype)sharedBrowser {
     static G5BrowserController *sharedBrowser;
-    
     static dispatch_once_t BrowserOneToken;
     
     dispatch_once(&BrowserOneToken, ^{
@@ -41,7 +37,7 @@
 }
 
 - (instancetype)init{
-    return [self initPrivate];
+    return [G5BrowserController sharedBrowser];
 }
 
 #pragma mark - 私有初始化函数
@@ -51,9 +47,25 @@
     if (self) {
         _G5WebView = [[G5WebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         
+        /**
+         * 关闭当前窗口
+         */
+        [_G5WebView.bridge registerHandler:@"closeWindow" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            if (self.navigationController != nil) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                
+                [self dismissViewControllerAnimated:YES completion:^{
+                    // do something
+                }];
+            }
+        }];
+
+        
         [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
-
+        
         // 添加返回通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disabledNativeBackEffect) name:G5_Noti_diabledNativeBackEffect object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enabledNativeBackEffect) name:G5_Noti_enabledNativeBackEffect object:nil];
@@ -113,12 +125,10 @@
 }
 
 - (void)enabledNativeBackEffect{
-    
     _isShowNavigationBar = YES;
     [self.navigationController setNavigationBarHidden:NO];
     _barAlpha =  self.navigationController.navigationBar.alpha;
     self.navigationController.navigationBar.alpha = 0.0;
-    
 }
 
 - (void)leaveOutShowNavigation{

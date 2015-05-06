@@ -14,14 +14,28 @@ typedef void (^AVResultBlock)(id object,NSError *error);
 @interface G5RemoteUpdate : NSObject
 
 /**
- * 远程更新代码库
+ * 三个状态位配置
  */
-+ (void)updateLocalCodeSlient:(BOOL)slient showView:(UIView *)showView;
+@property (nonatomic,strong) NSString *updatePre;
+@property (nonatomic,strong) NSString *updateing;
+@property (nonatomic,strong) NSString *updateEnd;
 
 /**
- * 安装代码库
+ * 远程更新缓存库
  */
-+ (void)installCode:(NSInteger)version;
++ (void)updateLocalCodeSlient:(BOOL)slient
+                     showView:(UIView *)showView
+                 updatePreTip:(NSString *)updatePreTip
+                 updateingTip:(NSString *)updateingTip
+                 updateEndTip:(NSString *)updateEndTip;
+
+
+
+
+/**
+ * 设置版本号
+ */
++ (void)setCodeVersion:(NSInteger)version;
 
 /**
  * 获取文件路径
@@ -41,5 +55,6 @@ typedef void (^AVResultBlock)(id object,NSError *error);
 + (NSString *)loadFileSystemFile:(NSString *)pathForResource
                           ofType:(NSString *)ofType
                      inDirectory:(NSString *)inDirectory;
+
 
 @end

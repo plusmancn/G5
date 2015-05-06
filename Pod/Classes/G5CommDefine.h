@@ -9,11 +9,17 @@
 #ifndef Pods_G5CommDefine_h
 #define Pods_G5CommDefine_h
 
+/**
+ * 加载方法拓展
+ */
+#import "NSString+URLEncoding.h"
+
 /** 
  * push方式，浏览器滑动返回
  */
 #define G5_Noti_diabledNativeBackEffect @"G5_Noti_diabledNativeBackEffect"
 #define G5_Noti_enabledNativeBackEffect @"G5_Noti_enabledNativeBackEffect"
+#define G5_Noti_appEnterForeground @"G5_Noti_appEnterForeground"
 
 /*
  *  System Versioning Preprocessor Macros
@@ -59,6 +65,11 @@
 #else
 #define G5Log(...)
 #endif
+
+/**
+ * 判断文件目录是否存在
+ */
+#define FOLDER_IS_EXISTS(folder) [[NSFileManager defaultManager] fileExistsAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:[NSString stringWithFormat:@"/%@",folder]]]
 
 
 #endif

@@ -8,14 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import "G5CommDefine.h"
+#import "G5WebView.h"
+
+// 判读是否已经初始化过
 
 @interface G5BrowserController : UIViewController <UIWebViewDelegate>
 
-// 加载网页地址
+/**
+ * 暴露浏览器内核
+ */
+@property (strong,nonatomic) G5WebView *G5WebView;
+
+/**
+ * 加载网页地址
+ */
 - (void)loadURL:(NSString *)url;
 - (void)loadURLWithLocalfile:(NSString *)localFile
                        query:(NSString *)query
               isInMainBundle:(BOOL)isInMainBundle;
 
+/**
+ * 导航栏挂起
+ */
+- (void)leaveOutShowNavigation;
 
 @end
