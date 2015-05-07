@@ -61,7 +61,7 @@
                 }];
             }
         }];
-
+        
         
         [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -120,20 +120,34 @@
 
 #pragma mark - 返回边界系列函数方法
 - (void)disabledNativeBackEffect{
-    _isShowNavigationBar = NO;
-    [self.navigationController setNavigationBarHidden:YES];
+    self.isShowNavigationBar = NO;
+    
 }
 
 - (void)enabledNativeBackEffect{
-    _isShowNavigationBar = YES;
-    [self.navigationController setNavigationBarHidden:NO];
-    _barAlpha =  self.navigationController.navigationBar.alpha;
-    self.navigationController.navigationBar.alpha = 0.0;
+    self.isShowNavigationBar = YES;
 }
 
 - (void)leaveOutShowNavigation{
-    [self.navigationController setNavigationBarHidden:NO];
+    self.isShowNavigationBar = YES;
+    //    [self.navigationController setNavigationBarHidden:NO];
     self.navigationController.navigationBar.alpha = 1.0;
 }
 
+
+-(void)setIsShowNavigationBar:(BOOL)isShowNavigationBar{
+    _isShowNavigationBar = isShowNavigationBar;
+    
+    if (_isShowNavigationBar) {
+        [self.navigationController setNavigationBarHidden:NO];
+        _barAlpha =  self.navigationController.navigationBar.alpha;
+        self.navigationController.navigationBar.alpha = 0.0;
+    }else{
+        [self.navigationController setNavigationBarHidden:YES];
+    }
+    
+}
+
+
 @end
+
