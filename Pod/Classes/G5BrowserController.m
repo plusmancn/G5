@@ -62,6 +62,7 @@
             }
         }];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:@"G5ApplicationDidBecomeActive" object:nil];
         
         [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -101,6 +102,12 @@
     
 }
 
+-(void)applicationDidBecomeActive:(NSNotification*)note{
+    if (self.navigationController) {
+        self.navigationController.navigationBar.alpha = 0.0;
+    }
+}
+
 #pragma mark -  网页加载
 - (void)loadURL:(NSString *)url{
     G5Log(@"loadUrl: %@",url);
@@ -123,6 +130,7 @@
     self.isShowNavigationBar = NO;
     
 }
+
 
 - (void)enabledNativeBackEffect{
     self.isShowNavigationBar = YES;
@@ -150,4 +158,3 @@
 
 
 @end
-
