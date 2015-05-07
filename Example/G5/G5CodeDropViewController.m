@@ -65,7 +65,11 @@
 }
 
 - (void)updateLocalHtml{
-    [G5RemoteUpdate updateLocalCodeSlient:NO showView:self.view];
+    [G5RemoteUpdate updateLocalCodeSlient:NO
+                                 showView:self.view
+                             updatePreTip:@"应用数据有更新"
+                             updateingTip:@"下载部署中"
+                             updateEndTip:@"更新成功"];
 }
 
 /*
