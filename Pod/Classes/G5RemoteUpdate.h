@@ -56,5 +56,11 @@ typedef void (^AVResultBlock)(id object,NSError *error);
                           ofType:(NSString *)ofType
                      inDirectory:(NSString *)inDirectory;
 
+/**
+ * 配置更新时间
+ */
++(void)setUpdatePadding:(NSTimeInterval)time;
+
+
 
 @end

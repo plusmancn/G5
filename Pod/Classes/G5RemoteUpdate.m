@@ -20,6 +20,17 @@
 
 @implementation G5RemoteUpdate
 
+
+static NSDate *latestUpdate;
+static NSTimeInterval updateTime;
+
+
++(void)initialize{
+    [super initialize ];
+    latestUpdate = [NSDate date];
+    updateTime = 30 * 60;
+}
+
 // 触发器
 + (void)updateLocalCodeSlient:(BOOL)slient
                      showView:(UIView *)showView
@@ -30,6 +41,12 @@
                                  @"platform":@"ios",
                                  @"appid":@"appid_g5"
                                  };
+    
+    if ([[NSDate date] timeIntervalSinceDate:latestUpdate] <= updateTime) {
+        return;
+    }
+    
+    
     // 展现登录菊花
     MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
     HUD.labelFont = [UIFont systemFontOfSize:13];
@@ -43,6 +60,11 @@
             [[G5AlertView sharedAlertView] TTAlert:@"网络连接错误" message:@"请检查你的网络设置"];
             return;
         }
+        
+        //保存最新一次的更新时间
+        
+        latestUpdate = [NSDate date];
+        
         
         if ([object[@"errorCode"] intValue] != 0) {
             [[G5AlertView sharedAlertView] TTAlert:@"报错啦！" message:object[@"errorMessage"]];
@@ -257,6 +279,10 @@
            block(nil,error);
     }];
     
+}
+
++(void)setUpdatePadding:(NSTimeInterval)time{
+    updateTime = time;
 }
 
 
