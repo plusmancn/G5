@@ -104,7 +104,9 @@
 
 -(void)applicationDidBecomeActive:(NSNotification*)note{
     if (self.navigationController) {
-        self.navigationController.navigationBar.alpha = 0.0;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.isShowNavigationBar = YES;
+        }];
     }
 }
 
