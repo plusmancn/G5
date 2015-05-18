@@ -10,7 +10,7 @@
 #import "G5CommDefine.h"
 #import "G5WebView.h"
 
-#define  G5AppActive [[NSNotificationCenter defaultCenter] postNotificationName:@"G5ApplicationDidBecomeActive" object:nil];
+#define G5AppActive [[NSNotificationCenter defaultCenter] postNotificationName:@"G5ApplicationDidBecomeActive" object:nil]
 
 // 判读是否已经初始化过
 
