@@ -125,6 +125,8 @@
     NSURL *finalURL = [NSURL URLWithString:absoluteURLwithQueryString];
     
     [self loadHTMLString:_html baseURL:finalURL];
+    
+    G5Log(@"%@",absoluteURLwithQueryString);
 }
 
 

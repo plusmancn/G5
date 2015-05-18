@@ -28,48 +28,45 @@ static NSTimeInterval updateTime;
 +(void)initialize{
     [super initialize ];
     latestUpdate = [NSDate date];
-    updateTime = 30 * 60;
+    updateTime = 10 * 60;
 }
 
 // 触发器
 + (void)updateLocalCodeSlient:(BOOL)slient
                      showView:(UIView *)showView
                  updatePreTip:(NSString *)updatePreTip
-                    updateingTip:(NSString *)updateingTip
+                 updateingTip:(NSString *)updateingTip
                  updateEndTip:(NSString *)updateEndTip{
-        NSDictionary *params = @{
-                                 @"platform":@"ios",
-                                 @"appid":@"appid_g5"
-                                 };
-    
-    if ([[NSDate date] timeIntervalSinceDate:latestUpdate] <= updateTime) {
+    if (([[NSDate date] timeIntervalSinceDate:latestUpdate] <= updateTime)) {
         return;
     }
     
+    G5Log(@"开始进入程序更新流程");
+    //保存最新一次的查询时间
+    latestUpdate = [NSDate date];
+    
+    NSDictionary *params = @{
+                             @"platform":@"ios",
+                             @"appid":@"appid_hyx"
+                             };
     
     // 展现登录菊花
-    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
-    HUD.labelFont = [UIFont systemFontOfSize:13];
-    HUD.labelText = @"连接网络中...";
+    /*MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:showView animated:YES];
+     HUD.labelFont = [UIFont systemFontOfSize:13];
+     HUD.labelText = @"连接网络中...";*/
     
     [G5RemoteUpdate callCloudFunc:@"verLatest" params:params block:^(id object, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        /*dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideAllHUDsForView:showView animated:YES];
-        });
+        });*/
         if (error) {
-            [[G5AlertView sharedAlertView] TTAlert:@"网络连接错误" message:@"请检查你的网络设置"];
+            /*[[G5AlertView sharedAlertView] TTAlert:@"网络连接错误" message:@"请检查你的网络设置"];*/
             return;
         }
         
-        //保存最新一次的更新时间
-        
-        latestUpdate = [NSDate date];
-        
-        
         if ([object[@"errorCode"] intValue] != 0) {
             [[G5AlertView sharedAlertView] TTAlert:@"报错啦！" message:object[@"errorMessage"]];
-        }else if([self getCodeVersion] - [object[@"data"][@"version"] longValue] < 0){
-            
+        }else if([self getCodeVersion] - [object[@"data"][@"version"] longValue] < 0 ){
             NSString *message = [NSString stringWithFormat:@"大小:%@，是否立即下载？",object[@"data"][@"zipSize"]];
             
             if([object[@"data"][@"isForceUpdate"] intValue] == 0){
@@ -92,11 +89,9 @@ static NSTimeInterval updateTime;
                                updateEndTip:updateEndTip
                  ];
             }
+            
         }else{
-            if (!slient) {
-                NSString *message = [NSString stringWithFormat:@"当前数据版本: %ld",(long)[self getCodeVersion]];
-                [[G5AlertView sharedAlertView] TTAlert:@"已经是最新版啦" message:message];
-            }
+            G5Log(@"已经是最新版本啦");
         }
     }];
     
@@ -112,7 +107,10 @@ static NSTimeInterval updateTime;
     [self deleteOldFolder:@"remotePub"];
     
     // 进度条
-    MBProgressHUD *hudBarLine = [MBProgressHUD showBarLineProcess:showView labelText:updateingTip];
+    __block MBProgressHUD *hudBarLine;
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+         hudBarLine = [MBProgressHUD showBarLineProcess:showView labelText:updateingTip];
+    }];
     
     // 下载远程www代码包
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:zipUrl]];
@@ -154,10 +152,14 @@ static NSTimeInterval updateTime;
     
     [operation start];
     
+    
+    // 进度条
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
         G5Log(@"%f",progress);
-        hudBarLine.progress = progress;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            hudBarLine.progress = progress;
+        }];
     }];
 }
 
@@ -235,8 +237,8 @@ static NSTimeInterval updateTime;
 
 // 本地文件加载
 + (NSString *)loadMainBundleFile:(NSString *)pathForResource
-                     ofType:(NSString *)ofType
-                inDirectory:(NSString *)inDirectory{
+                          ofType:(NSString *)ofType
+                     inDirectory:(NSString *)inDirectory{
     NSString *htmlFileBody = [[NSBundle mainBundle] pathForResource:pathForResource ofType:ofType inDirectory:inDirectory];
     
     NSString *htmlStringBody = [NSString stringWithContentsOfFile:htmlFileBody encoding:NSUTF8StringEncoding error:nil];
@@ -248,8 +250,8 @@ static NSTimeInterval updateTime;
  * 加载实时更新文件
  */
 + (NSString *)loadFileSystemFile:(NSString *)pathForResource
-                           ofType:(NSString *)ofType
-                      inDirectory:(NSString *)inDirectory{
+                          ofType:(NSString *)ofType
+                     inDirectory:(NSString *)inDirectory{
     
     NSString *path = [self getFilesPath:inDirectory];
     
@@ -274,17 +276,20 @@ static NSTimeInterval updateTime;
     
     [manager POST:@"http://g5-server.avosapps.com/callCloudFunc"
        parameters:lastParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-           block(responseObject,nil);
+           [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+               block(responseObject,nil);
+           }];
+           
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           block(nil,error);
-    }];
+           [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+               block(nil,error);
+           }];
+       }];
     
 }
 
 +(void)setUpdatePadding:(NSTimeInterval)time{
     updateTime = time;
 }
-
-
 
 @end

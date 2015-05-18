@@ -105,7 +105,7 @@
 -(void)applicationDidBecomeActive:(NSNotification*)note{
     if (self.navigationController) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.isShowNavigationBar = YES;
+            self.navigationController.navigationBar.alpha = 0.0;
         }];
     }
 }
@@ -130,7 +130,6 @@
 #pragma mark - 返回边界系列函数方法
 - (void)disabledNativeBackEffect{
     self.isShowNavigationBar = NO;
-    
 }
 
 
@@ -140,7 +139,6 @@
 
 - (void)leaveOutShowNavigation{
     self.isShowNavigationBar = YES;
-    //    [self.navigationController setNavigationBarHidden:NO];
     self.navigationController.navigationBar.alpha = 1.0;
 }
 
