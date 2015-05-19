@@ -83,16 +83,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     // 可以改变样式，不应该改变属性
-    if (_isShowNavigationBar) {
-        [self enabledNativeBackEffect];
-    }else{
-        [self disabledNativeBackEffect];
-    }
+    [self inspectNavigationBar];
     
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    [self inspectNavigationBar];
     [super viewDidAppear:animated];
 }
 
@@ -140,6 +137,10 @@
 - (void)leaveOutShowNavigation{
     self.isShowNavigationBar = YES;
     self.navigationController.navigationBar.alpha = 1.0;
+}
+
+- (void)inspectNavigationBar{
+    self.isShowNavigationBar = self.isShowNavigationBar;
 }
 
 
