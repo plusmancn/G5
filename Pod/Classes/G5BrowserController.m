@@ -62,7 +62,7 @@
             }
         }];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:@"G5ApplicationDidBecomeActive" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(G5ApplicationDidBecomeActive:) name:@"G5ApplicationDidBecomeActive" object:nil];
         
         [self.view addSubview:_G5WebView];
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -83,16 +83,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     // 可以改变样式，不应该改变属性
-    if (_isShowNavigationBar) {
-        [self enabledNativeBackEffect];
-    }else{
-        [self disabledNativeBackEffect];
-    }
+    [self inspectNavigationBar];
     
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    [self inspectNavigationBar];
     [super viewDidAppear:animated];
 }
 
@@ -102,17 +99,16 @@
     
 }
 
--(void)applicationDidBecomeActive:(NSNotification*)note{
-    if (self.navigationController) {
+-(void)G5ApplicationDidBecomeActive:(NSNotification*)note{
+    if (self.navigationController ) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.navigationController.navigationBar.alpha = 0.0;
+            self.navigationController.navigationBar.alpha = _barAlpha;
         }];
     }
 }
 
 #pragma mark -  网页加载
 - (void)loadURL:(NSString *)url{
-    G5Log(@"loadUrl: %@",url);
     _isShowNavigationBar = YES;
     [_G5WebView loadURL:url];
 }
@@ -128,20 +124,24 @@
 
 
 #pragma mark - 返回边界系列函数方法
-- (void)disabledNativeBackEffect{
+-(void)disabledNativeBackEffect{
     self.isShowNavigationBar = NO;
 }
 
 
-- (void)enabledNativeBackEffect{
+-(void)enabledNativeBackEffect{
     self.isShowNavigationBar = YES;
 }
 
-- (void)leaveOutShowNavigation{
+-(void)leaveOutShowNavigation{
     self.isShowNavigationBar = YES;
     self.navigationController.navigationBar.alpha = 1.0;
+    self.barAlpha = 1.0;
 }
 
+-(void)inspectNavigationBar{
+    self.isShowNavigationBar = self.isShowNavigationBar;
+}
 
 -(void)setIsShowNavigationBar:(BOOL)isShowNavigationBar{
     _isShowNavigationBar = isShowNavigationBar;
@@ -155,6 +155,5 @@
     }
     
 }
-
 
 @end

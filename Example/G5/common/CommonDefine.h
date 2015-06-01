@@ -10,6 +10,7 @@
 #define G5_CommonDefine_h
 
 #import <G5/G5CommDefine.h>
+#import "G5UserJsSdk.h"
 
 /**
  * 弹框提醒

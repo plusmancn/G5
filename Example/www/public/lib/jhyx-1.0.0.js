@@ -181,6 +181,24 @@ _connectWebViewJavascriptBridge(function(bridge) {
         bridge.callHandler('openUrl',lastParams);
     }
 
+
+    /**
+     * 获取设备电量
+     */
+    function getDeviceBatteryUsage(params){
+
+        var getDeviceBatteryUsageCallback = {
+            success:params.success,
+            error:params.error,
+        }
+
+        bridge.callHandler('getDeviceBatteryUsage',{},function(response){
+            if (response.errorCode ==0) {
+                getDeviceBatteryUsageCallback.success(response.data);
+            };
+        }); 
+    }
+
     window.jhyx = {
         // scanQRCode:scanQRCode,
         // chooseImage:chooseImage,
@@ -188,6 +206,7 @@ _connectWebViewJavascriptBridge(function(bridge) {
         // closeWindow:closeWindow,
         // shareSocialNetwork:shareSocialNetwork,
         postNotification:postNotification,
+        getDeviceBatteryUsage:getDeviceBatteryUsage,
         // openLocation:openLocation,
         // mapMeetCheckIn:mapMeetCheckIn,
         // openUserNameCard:openUserNameCard,

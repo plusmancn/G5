@@ -8,7 +8,7 @@
 
 #import "G5JsApiViewController.h"
 #import "LineButton.h"
-#import <G5/G5BrowserController.h>
+
 
 @interface G5JsApiViewController ()
 
@@ -46,12 +46,14 @@
  * 展示web示例
  */
 - (void)showF7WebDemo{
+    NSLog(@"%f",[G5UserJsSdk getDeviceBatteryUsage]);
     
-    G5BrowserController *G5Browser = [[G5BrowserController alloc] init];
+    G5BrowserController *G5Browser = [G5UserJsSdk getBrowser];
     [G5Browser loadURLWithLocalfile:@"index" query:@"" isInMainBundle:YES];
-    [self.navigationController pushViewController:G5Browser animated:YES];
+    [self.navigationController pushViewController:G5Browser animated:YES];  
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
